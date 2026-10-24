@@ -1,0 +1,1084 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Môtier · French Pastry &amp; Cuisine</title>
+<meta name="description" content="Môtier — French pastry, viennoiserie and cuisine by a French-trained chef in historic Clifton, Virginia.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400;0,6..96,500;0,6..96,600;1,6..96,400;1,6..96,500&family=Jost:wght@300;400;500;600&display=swap">
+<style>
+/* Layout concept: a white pâtisserie box — wide margins, a didone wordmark, hairline "ribbon" rules in French blue, butter-gold only where something is baked. */
+:root{
+  --paper:#FFFFFF;
+  --mist:#F5F7FA;          /* faint blue-white for alternating bands */
+  --ink:#16202E;           /* deep blue-black */
+  --ink-soft:#4A5566;
+  --line:#E3E7EE;
+  --bleu:#1F3B6E;          /* French blue, the ribbon */
+  --bleu-tint:#E9EEF7;
+  --butter:#C99A4B;        /* baked gold */
+  --butter-tint:#FBF3E4;
+  --ok:#2F7D5B; --warn:#B4552D;
+  --display:"Bodoni Moda","Didot","Bodoni 72",Georgia,serif;
+  --body:"Jost","Futura","Century Gothic","Avenir Next",system-ui,sans-serif;
+  --gutter:max(20px, env(safe-area-inset-left,0px));
+  --gutter-r:max(20px, env(safe-area-inset-right,0px));
+  --maxw:1240px;
+  --ease:cubic-bezier(.2,.75,.15,1);
+  color-scheme:light;
+}
+*,*::before,*::after{box-sizing:border-box}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--body);font-size:17px;line-height:1.65;font-weight:400;overflow-x:hidden;-webkit-font-smoothing:antialiased}
+img{max-width:100%;display:block}
+[hidden]{display:none!important}
+a{color:inherit}
+button,input,select,textarea{font:inherit;color:inherit}
+:focus-visible{outline:2px solid var(--bleu);outline-offset:3px;border-radius:4px}
+h1,h2,h3{font-family:var(--display);font-weight:500;line-height:1.08;margin:0;text-wrap:balance;letter-spacing:-.01em}
+p{margin:0}
+.wrap{max-width:var(--maxw);margin:0 auto;padding-left:var(--gutter);padding-right:var(--gutter-r)}
+.eyebrow{font-size:.74rem;letter-spacing:.24em;text-transform:uppercase;font-weight:500;color:var(--bleu);display:inline-flex;align-items:center;gap:.8em}
+.eyebrow::before{content:"";width:28px;height:1px;background:currentColor}
+.section{padding-block:clamp(72px,10vw,136px)}
+.section-head{display:grid;gap:18px;max-width:720px;margin-bottom:clamp(36px,5vw,64px)}
+.section-head h2{font-size:clamp(2.3rem,5.4vw,4.2rem)}
+.section-head h2 em{font-style:italic;color:var(--bleu)}
+.lede{color:var(--ink-soft);font-size:1.08rem;max-width:62ch}
+
+/* ---------- buttons ---------- */
+.btn{--bg:var(--ink);--fg:var(--paper);position:relative;overflow:hidden;display:inline-flex;align-items:center;gap:.6em;padding:.95em 1.6em;border-radius:999px;border:1px solid var(--bg);background:var(--bg);color:var(--fg);font-size:.82rem;letter-spacing:.14em;text-transform:uppercase;font-weight:500;text-decoration:none;cursor:pointer;transition:transform .4s var(--ease),background .3s,color .3s,border-color .3s;isolation:isolate}
+.btn::after{content:"";position:absolute;inset:0;background:var(--bleu);transform:translateY(101%);transition:transform .5s var(--ease);z-index:-1;border-radius:inherit}
+.btn:hover::after{transform:translateY(0)}
+.btn:hover{border-color:var(--bleu)}
+.btn.ghost{--bg:transparent;--fg:var(--ink);border-color:var(--ink)}
+.btn.ghost:hover{color:var(--paper)}
+.btn .arr{transition:transform .4s var(--ease)}
+.btn:hover .arr{transform:translateX(4px)}
+.ripple{position:absolute;border-radius:50%;background:rgba(255,255,255,.45);transform:scale(0);animation:ripple .7s var(--ease) forwards;pointer-events:none;z-index:1}
+@keyframes ripple{to{transform:scale(4);opacity:0}}
+
+/* ---------- header ---------- */
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);background:rgba(255,255,255,.92);z-index:61}
+.top{position:fixed;top:env(safe-area-inset-top,0px);left:0;right:0;z-index:60;transition:background .4s,box-shadow .4s,transform .5s var(--ease)}
+.top.scrolled{background:rgba(255,255,255,.9);backdrop-filter:saturate(1.4) blur(14px);-webkit-backdrop-filter:saturate(1.4) blur(14px);box-shadow:0 1px 0 var(--line)}
+.top.hide{transform:translateY(-110%)}
+.top .wrap{display:flex;align-items:center;justify-content:space-between;gap:20px;height:76px}
+.brand{font-family:var(--display);font-size:1.7rem;font-weight:500;text-decoration:none;letter-spacing:.01em;display:flex;align-items:baseline;gap:.5em}
+.brand small{font-family:var(--body);font-size:.6rem;letter-spacing:.3em;text-transform:uppercase;color:var(--ink-soft);font-weight:500}
+.nav{display:flex;align-items:center;gap:30px}
+.nav a.link{font-size:.8rem;letter-spacing:.16em;text-transform:uppercase;text-decoration:none;font-weight:500;position:relative;padding:6px 0}
+.nav a.link::after{content:"";position:absolute;left:0;right:0;bottom:0;height:1px;background:var(--bleu);transform:scaleX(0);transform-origin:right;transition:transform .45s var(--ease)}
+.nav a.link:hover::after,.nav a.link.active::after{transform:scaleX(1);transform-origin:left}
+.icon-btn{width:42px;height:42px;border-radius:50%;border:1px solid var(--line);background:var(--paper);display:grid;place-items:center;cursor:pointer;transition:border-color .3s,transform .3s}
+.icon-btn:hover{border-color:var(--ink);transform:rotate(-8deg)}
+.icon-btn svg{width:18px;height:18px}
+.sound-btn .bars{display:flex;gap:2px;align-items:flex-end;height:14px}
+.sound-btn .bars i{width:2px;background:var(--ink);height:4px;border-radius:2px;transition:height .3s}
+.sound-btn.on .bars i{animation:eq 1s ease-in-out infinite}
+.sound-btn.on .bars i:nth-child(2){animation-delay:-.3s}.sound-btn.on .bars i:nth-child(3){animation-delay:-.6s}.sound-btn.on .bars i:nth-child(4){animation-delay:-.15s}
+@keyframes eq{0%,100%{height:4px}50%{height:14px}}
+.menu-toggle{display:none}
+@media (max-width:920px){
+  .nav .link,.nav .btn{display:none}
+  .menu-toggle{display:grid}
+}
+.drawer{position:fixed;inset:0;z-index:70;background:var(--paper);display:flex;flex-direction:column;padding:calc(90px + env(safe-area-inset-top,0px)) var(--gutter-r) calc(40px + env(safe-area-inset-bottom,0px)) var(--gutter);clip-path:circle(0% at calc(100% - 40px) 40px);transition:clip-path .8s var(--ease);visibility:hidden}
+.drawer.open{clip-path:circle(150% at calc(100% - 40px) 40px);visibility:visible}
+.drawer a{font-family:var(--display);font-size:clamp(2.4rem,11vw,3.4rem);text-decoration:none;padding:6px 0;border-bottom:1px solid var(--line);display:flex;justify-content:space-between;align-items:baseline;opacity:0;transform:translateY(20px);transition:opacity .5s,transform .6s var(--ease)}
+.drawer a span{font-family:var(--body);font-size:.75rem;letter-spacing:.2em;color:var(--ink-soft)}
+.drawer.open a{opacity:1;transform:none}
+.drawer.open a:nth-child(2){transition-delay:.06s}.drawer.open a:nth-child(3){transition-delay:.12s}.drawer.open a:nth-child(4){transition-delay:.18s}.drawer.open a:nth-child(5){transition-delay:.24s}.drawer.open a:nth-child(6){transition-delay:.3s}
+.drawer-close{position:absolute;top:calc(17px + env(safe-area-inset-top,0px));right:var(--gutter-r)}
+.drawer .foot{margin-top:auto;color:var(--ink-soft);font-size:.9rem}
+
+/* ---------- hero ---------- */
+.hero{position:relative;padding-top:calc(130px + env(safe-area-inset-top,0px));padding-bottom:clamp(56px,7vw,96px);overflow:hidden}
+#flour{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;z-index:0}
+.hero .wrap{position:relative;z-index:1;display:grid;grid-template-columns:1.05fr .95fr;gap:clamp(32px,5vw,80px);align-items:center}
+.hero-copy{display:grid;gap:26px;min-width:0}
+.wordmark{font-size:clamp(4.6rem,13vw,10.5rem);line-height:.86;letter-spacing:-.03em;font-weight:400}
+.wordmark .ch{display:inline-block;transform:translateY(0);opacity:1}
+.js .wordmark .ch{animation:rise 1.2s var(--ease) both}
+@keyframes rise{from{transform:translateY(60%) rotate(4deg);opacity:0;filter:blur(6px)}to{transform:none;opacity:1;filter:none}}
+.hero .tag{font-family:var(--display);font-style:italic;font-size:clamp(1.3rem,2.6vw,1.9rem);color:var(--bleu);line-height:1.3}
+.hero .sub{color:var(--ink-soft);max-width:46ch}
+.hero .ctas{display:flex;flex-wrap:wrap;gap:12px}
+.status-pill{display:inline-flex;align-items:center;gap:.6em;padding:.45em 1em;border-radius:999px;background:var(--mist);font-size:.82rem;font-weight:500;width:max-content;max-width:100%}
+.status-pill .dot{width:8px;height:8px;border-radius:50%;background:var(--ok);box-shadow:0 0 0 0 rgba(47,125,91,.5);animation:pulse 2s infinite}
+.status-pill.closed .dot{background:var(--warn);animation:none}
+@keyframes pulse{70%{box-shadow:0 0 0 10px rgba(47,125,91,0)}100%{box-shadow:0 0 0 0 rgba(47,125,91,0)}}
+.hero-art{position:relative;aspect-ratio:4/5;max-width:100%;min-width:0}
+.hero-art .main{position:absolute;inset:0 0 0 12%;border-radius:220px 220px 6px 6px;overflow:hidden;background:var(--butter-tint)}
+.hero-art .main img{width:100%;height:110%;object-fit:cover;transform:translateY(var(--py,0px)) scale(1.04)}
+.hero-art .small{position:absolute;left:0;bottom:8%;width:42%;aspect-ratio:1;border-radius:50%;overflow:hidden;border:8px solid var(--paper);box-shadow:0 30px 60px -30px rgba(22,32,46,.35);background:var(--bleu-tint)}
+.hero-art .small img{width:100%;height:100%;object-fit:cover}
+.seal{position:absolute;right:-2%;top:6%;width:120px;height:120px;z-index:2}
+.seal svg{width:100%;height:100%;animation:spin 22s linear infinite}
+.seal .c{position:absolute;inset:0;display:grid;place-items:center;font-family:var(--display);font-size:1.7rem;font-style:italic;color:var(--bleu)}
+@keyframes spin{to{transform:rotate(360deg)}}
+.js .hero-art{animation:artIn 1.4s .3s var(--ease) both}
+@keyframes artIn{from{clip-path:inset(100% 0 0 0);transform:translateY(30px)}to{clip-path:inset(0 0 0 0);transform:none}}
+@media (max-width:860px){
+  .hero .wrap{grid-template-columns:1fr}
+  .hero-art{max-width:460px;width:100%;justify-self:center}
+}
+
+/* ---------- marquee ---------- */
+.marquee{border-block:1px solid var(--line);overflow:hidden;padding-block:20px;background:var(--paper)}
+.marquee .track{display:flex;width:max-content;gap:48px;animation:marq 38s linear infinite}
+.marquee:hover .track{animation-play-state:paused}
+.marquee span{font-family:var(--display);font-size:clamp(1.5rem,3vw,2.3rem);font-style:italic;white-space:nowrap;display:flex;align-items:center;gap:48px}
+.marquee span::after{content:"✦";font-style:normal;font-size:.7em;color:var(--butter)}
+@keyframes marq{to{transform:translateX(-50%)}}
+
+/* ---------- story ---------- */
+.story .wrap{display:grid;grid-template-columns:.9fr 1.1fr;gap:clamp(36px,6vw,96px);align-items:center}
+.story-art{position:relative;aspect-ratio:3/4;border-radius:6px;overflow:hidden;background:var(--mist);max-width:100%}
+.story-art img{width:100%;height:115%;object-fit:cover;transform:translateY(var(--py,0px))}
+.story-art .cap{position:absolute;left:16px;bottom:16px;right:16px;background:rgba(255,255,255,.94);padding:14px 18px;border-radius:4px;font-size:.85rem;color:var(--ink-soft)}
+.story-art .cap b{display:block;font-family:var(--display);font-size:1.15rem;color:var(--ink);font-weight:500}
+.story-copy{display:grid;gap:24px;min-width:0}
+.story-copy h2{font-size:clamp(2.2rem,4.8vw,3.8rem)}
+.story-copy h2 em{color:var(--bleu)}
+.story-copy p{color:var(--ink-soft);max-width:60ch}
+.facts{display:grid;grid-template-columns:repeat(3,1fr);gap:0;border-top:1px solid var(--line);margin-top:8px}
+.facts div{padding:22px 16px 0 0}
+.facts div+div{padding-left:20px;border-left:1px solid var(--line)}
+.facts b{display:block;font-family:var(--display);font-size:clamp(2rem,4vw,2.8rem);font-weight:400;font-variant-numeric:tabular-nums;color:var(--ink)}
+.facts span{font-size:.78rem;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-soft)}
+@media (max-width:860px){.story .wrap{grid-template-columns:1fr}.story-art{aspect-ratio:4/3}}
+@media (max-width:480px){.facts{grid-template-columns:1fr}.facts div+div{padding-left:0;border-left:0;border-top:1px solid var(--line);padding-top:16px}.facts div{padding-top:16px}}
+
+/* ---------- menu ---------- */
+.menu{background:var(--mist)}
+.tabs{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:40px;position:relative}
+.tab{border:1px solid var(--line);background:var(--paper);padding:.7em 1.3em;border-radius:999px;font-size:.8rem;letter-spacing:.12em;text-transform:uppercase;font-weight:500;cursor:pointer;transition:all .35s var(--ease)}
+.tab:hover{border-color:var(--ink)}
+.tab[aria-selected="true"]{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+.menu-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:22px}
+.dish{background:var(--paper);border-radius:6px;padding:26px;display:grid;gap:14px;align-content:start;transform-style:preserve-3d;transition:transform .5s var(--ease),box-shadow .5s;position:relative;min-width:0}
+.dish:hover{box-shadow:0 30px 60px -36px rgba(22,32,46,.4)}
+.dish .ill{height:120px;display:grid;place-items:center;background:var(--butter-tint);border-radius:4px;overflow:hidden}
+.dish .ill svg{width:62%;height:auto;max-height:100px;transition:transform .7s var(--ease)}
+.dish:hover .ill svg{transform:scale(1.1) rotate(-4deg)}
+.dish h3{font-size:1.45rem}
+.dish .fr{font-family:var(--display);font-style:italic;color:var(--bleu);font-size:1rem;margin-top:-8px}
+.dish p{color:var(--ink-soft);font-size:.95rem}
+.dish .tags{display:flex;gap:6px;flex-wrap:wrap}
+.dish .tags span{font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;padding:.3em .8em;border-radius:999px;background:var(--bleu-tint);color:var(--bleu);font-weight:500}
+.menu-note{margin-top:34px;display:flex;gap:16px;align-items:center;flex-wrap:wrap;color:var(--ink-soft);font-size:.95rem}
+.chalk{font-family:var(--display);font-style:italic;color:var(--ink)}
+.dish.enter{animation:dishIn .7s var(--ease) both}
+@keyframes dishIn{from{opacity:0;transform:translateY(24px) scale(.98)}to{opacity:1;transform:none}}
+
+/* ---------- gallery ---------- */
+.gallery-grid{display:grid;grid-template-columns:repeat(12,1fr);grid-auto-rows:clamp(120px,14vw,190px);gap:14px}
+.ph{position:relative;overflow:hidden;border-radius:6px;background:var(--butter-tint);margin:0;min-width:0}
+.ph img{width:100%;height:100%;object-fit:cover;transition:transform 1.2s var(--ease),filter .6s}
+.ph:hover img{transform:scale(1.07)}
+.ph figcaption{position:absolute;left:12px;bottom:12px;background:rgba(255,255,255,.94);padding:.35em .9em;border-radius:999px;font-size:.75rem;letter-spacing:.1em;text-transform:uppercase;font-weight:500;transform:translateY(8px);opacity:0;transition:all .45s var(--ease)}
+.ph:hover figcaption,.ph:focus-within figcaption{transform:none;opacity:1}
+.ph.failed img{display:none}
+.ph .fallback{position:absolute;inset:0;display:grid;place-items:center;background:var(--butter-tint)}
+.ph .fallback svg{width:50%;max-width:180px;height:auto}
+.g1{grid-column:span 5;grid-row:span 2}.g2{grid-column:span 4}.g3{grid-column:span 3;grid-row:span 2}.g4{grid-column:span 4}.g5{grid-column:span 4}.g6{grid-column:span 4}.g7{grid-column:span 4}
+@media (max-width:760px){
+  .gallery-grid{grid-template-columns:repeat(2,1fr);grid-auto-rows:150px}
+  .g1,.g3{grid-column:span 2;grid-row:span 2}.g2,.g4,.g5,.g6{grid-column:span 1;grid-row:span 1}.g7{grid-column:span 2}
+  .ph figcaption{opacity:1;transform:none}
+}
+
+/* ---------- hours ---------- */
+.hours .wrap{display:grid;grid-template-columns:1fr 1fr;gap:clamp(36px,6vw,96px)}
+.hours-card{display:grid;gap:4px;min-width:0}
+.hours-card h3{font-size:1.6rem;margin-bottom:10px;display:flex;justify-content:space-between;align-items:baseline;gap:12px;flex-wrap:wrap}
+.hours-card h3 small{font-family:var(--body);font-size:.72rem;letter-spacing:.16em;text-transform:uppercase;color:var(--ink-soft);font-weight:500}
+.row{display:flex;justify-content:space-between;gap:16px;padding:14px 0;border-bottom:1px solid var(--line);font-variant-numeric:tabular-nums;transition:background .3s,padding .3s}
+.row .d{font-weight:500}
+.row .t{color:var(--ink-soft);text-align:right}
+.row.today{background:var(--bleu-tint);padding-inline:14px;border-radius:4px;border-bottom-color:transparent}
+.row.today .d::after{content:"Today";margin-left:.8em;font-size:.65rem;letter-spacing:.14em;text-transform:uppercase;color:var(--bleu);vertical-align:2px}
+.row.off .t{color:var(--warn)}
+.notice{margin-top:22px;padding:18px 20px;border:1px solid var(--line);border-radius:6px;font-size:.92rem;color:var(--ink-soft);display:flex;gap:14px}
+.notice svg{flex:none;width:22px;height:22px;color:var(--butter)}
+@media (max-width:860px){.hours .wrap{grid-template-columns:1fr}}
+
+/* ---------- reservation ---------- */
+.reserve{background:linear-gradient(var(--mist),var(--paper))}
+.booker{display:grid;grid-template-columns:1.05fr .95fr;gap:0;background:var(--paper);border:1px solid var(--line);border-radius:10px;overflow:hidden;box-shadow:0 40px 80px -60px rgba(22,32,46,.35)}
+.steps{display:flex;gap:0;border-bottom:1px solid var(--line);grid-column:1/-1;overflow-x:auto}
+.step{flex:1;min-width:120px;display:flex;align-items:center;gap:10px;padding:16px 22px;font-size:.78rem;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-soft);font-weight:500;position:relative}
+.step b{width:26px;height:26px;border-radius:50%;border:1px solid var(--line);display:grid;place-items:center;font-size:.75rem;font-weight:500;transition:all .4s}
+.step.done b,.step.cur b{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+.step.cur{color:var(--ink)}
+.step::after{content:"";position:absolute;left:0;bottom:-1px;height:2px;width:100%;background:var(--bleu);transform:scaleX(0);transform-origin:left;transition:transform .6s var(--ease)}
+.step.cur::after,.step.done::after{transform:scaleX(1)}
+.pane{padding:clamp(22px,3.5vw,40px);min-width:0}
+.pane+.pane{border-left:1px solid var(--line)}
+.pane h3{font-size:1.5rem;margin-bottom:6px}
+.pane .hint{color:var(--ink-soft);font-size:.9rem;margin-bottom:22px}
+.cal-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px}
+.cal-head strong{font-family:var(--display);font-size:1.35rem;font-weight:500}
+.cal-nav{display:flex;gap:6px}
+.cal-nav button{width:38px;height:38px;border-radius:50%;border:1px solid var(--line);background:var(--paper);cursor:pointer;display:grid;place-items:center;transition:border-color .3s}
+.cal-nav button:hover:not(:disabled){border-color:var(--ink)}
+.cal-nav button:disabled{opacity:.3;cursor:not-allowed}
+.cal{display:grid;grid-template-columns:repeat(7,1fr);gap:4px;text-align:center}
+.cal .dow{font-size:.68rem;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-soft);padding:6px 0;font-weight:500}
+.cal button{aspect-ratio:1;border:0;background:transparent;border-radius:50%;cursor:pointer;font-variant-numeric:tabular-nums;font-size:.95rem;position:relative;transition:background .25s,color .25s,transform .25s;max-width:100%}
+.cal button:hover:not(:disabled){background:var(--bleu-tint)}
+.cal button:disabled{color:#B7BEC9;cursor:not-allowed}
+.cal button.mon:disabled{text-decoration:line-through}
+.cal button.today::after{content:"";position:absolute;bottom:14%;left:50%;width:4px;height:4px;border-radius:50%;background:var(--butter);transform:translateX(-50%)}
+.cal button.fri:not(:disabled)::before{content:"";position:absolute;top:14%;right:18%;width:5px;height:5px;border-radius:50%;background:var(--bleu)}
+.cal button.sel{background:var(--ink)!important;color:var(--paper);transform:scale(1.06)}
+.cal-legend{display:flex;gap:16px;flex-wrap:wrap;margin-top:14px;font-size:.78rem;color:var(--ink-soft)}
+.cal-legend i{display:inline-block;width:6px;height:6px;border-radius:50%;margin-right:6px;vertical-align:1px}
+.slots{display:grid;gap:18px;margin-top:4px}
+.slot-group h4{margin:0 0 8px;font-size:.72rem;letter-spacing:.16em;text-transform:uppercase;font-weight:500;color:var(--ink-soft);display:flex;justify-content:space-between}
+.slot-list{display:flex;flex-wrap:wrap;gap:8px}
+.slot{border:1px solid var(--line);background:var(--paper);padding:.55em 1em;border-radius:999px;font-variant-numeric:tabular-nums;font-size:.9rem;cursor:pointer;transition:all .3s var(--ease)}
+.slot:hover{border-color:var(--ink);transform:translateY(-2px)}
+.slot.sel{background:var(--bleu);border-color:var(--bleu);color:var(--paper)}
+.slot.enter{animation:dishIn .5s var(--ease) both}
+.empty{padding:28px;border:1px dashed var(--line);border-radius:8px;text-align:center;color:var(--ink-soft);font-size:.92rem}
+.form{display:grid;gap:16px}
+.field{display:grid;gap:6px;min-width:0}
+.field label,.field .lbl{font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;font-weight:500;color:var(--ink-soft)}
+.field input,.field select,.field textarea{border:1px solid var(--line);border-radius:6px;padding:.8em 1em;background:var(--paper);transition:border-color .3s,box-shadow .3s;width:100%;min-width:0}
+.field textarea{resize:vertical;min-height:80px}
+.field input:focus,.field select:focus,.field textarea:focus{outline:none;border-color:var(--bleu);box-shadow:0 0 0 4px var(--bleu-tint)}
+.field.err input{border-color:var(--warn)}
+.field .msg{font-size:.8rem;color:var(--warn);min-height:0}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.stepper{display:flex;align-items:center;border:1px solid var(--line);border-radius:6px;overflow:hidden;width:max-content}
+.stepper button{width:46px;height:46px;border:0;background:var(--mist);cursor:pointer;font-size:1.2rem}
+.stepper button:hover{background:var(--bleu-tint)}
+.stepper output{min-width:64px;text-align:center;font-variant-numeric:tabular-nums;font-weight:500}
+.choice{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.choice label{border:1px solid var(--line);border-radius:6px;padding:12px 14px;cursor:pointer;display:flex;gap:10px;align-items:flex-start;font-size:.9rem;text-transform:none;letter-spacing:0;color:var(--ink);transition:border-color .3s,background .3s}
+.choice input{accent-color:var(--bleu);margin-top:4px;width:auto}
+.choice label:has(input:checked){border-color:var(--bleu);background:var(--bleu-tint)}
+.summary{display:flex;gap:12px;align-items:center;padding:14px 16px;border-radius:6px;background:var(--butter-tint);font-size:.92rem;flex-wrap:wrap}
+.summary b{font-weight:600}
+.form .btn{justify-self:start}
+.small-note{font-size:.78rem;color:var(--ink-soft)}
+@media (max-width:900px){.booker{grid-template-columns:1fr}.pane+.pane{border-left:0;border-top:1px solid var(--line)}}
+@media (max-width:480px){.two,.choice{grid-template-columns:1fr}.step span{display:none}.step{min-width:0;justify-content:center}}
+
+/* confirmation ticket */
+.ticket-wrap{position:fixed;inset:0;z-index:90;display:grid;place-items:center;padding:20px max(16px,env(safe-area-inset-right,0px)) 20px max(16px,env(safe-area-inset-left,0px));background:rgba(22,32,46,.35);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);opacity:0;pointer-events:none;transition:opacity .4s}
+.ticket-wrap.show{opacity:1;pointer-events:auto}
+.ticket{width:min(460px,100%);max-height:calc(100vh - 40px);overflow:auto;background:var(--paper);border-radius:12px;position:relative;transform:translateY(40px) rotate(-2deg) scale(.96);transition:transform .8s var(--ease);box-shadow:0 50px 100px -40px rgba(22,32,46,.5)}
+.ticket-wrap.show .ticket{transform:none}
+.ticket .t-top{padding:30px 30px 22px;display:grid;gap:6px;text-align:center}
+.ticket .t-top h3{font-size:2rem}
+.ticket .code{font-variant-numeric:tabular-nums;letter-spacing:.24em;font-size:.82rem;color:var(--bleu);font-weight:500}
+.perf{height:24px;position:relative;border-top:2px dashed var(--line);margin:0 22px}
+.perf::before,.perf::after{content:"";position:absolute;top:-13px;width:24px;height:24px;border-radius:50%;background:rgba(22,32,46,.35)}
+.perf::before{left:-34px}.perf::after{right:-34px}
+.t-body{padding:0 30px 30px;display:grid;gap:14px}
+.t-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.t-grid div span{display:block;font-size:.68rem;letter-spacing:.16em;text-transform:uppercase;color:var(--ink-soft)}
+.t-grid div b{font-weight:500;font-variant-numeric:tabular-nums}
+.stamp{position:absolute;top:22px;right:20px;border:2px solid var(--bleu);color:var(--bleu);font-family:var(--display);font-style:italic;font-size:1.05rem;padding:4px 12px;border-radius:6px;transform:rotate(12deg) scale(2.4);opacity:0;transition:transform .5s .55s cubic-bezier(.3,1.6,.5,1),opacity .3s .55s}
+.ticket-wrap.show .stamp{transform:rotate(12deg) scale(1);opacity:.9}
+.t-park{display:flex;gap:12px;padding:14px;border-radius:6px;background:var(--bleu-tint);font-size:.88rem}
+.t-park svg{flex:none;width:30px;height:30px}
+.t-actions{display:flex;gap:10px;flex-wrap:wrap}
+.mine{margin-top:28px;display:grid;gap:10px}
+.mine-item{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:14px 18px;border:1px solid var(--line);border-radius:8px;background:var(--paper);flex-wrap:wrap}
+.mine-item b{font-family:var(--display);font-weight:500;font-size:1.1rem}
+.mine-item span{color:var(--ink-soft);font-size:.88rem}
+.linkbtn{background:none;border:0;color:var(--warn);cursor:pointer;font-size:.8rem;letter-spacing:.1em;text-transform:uppercase;text-decoration:underline;text-underline-offset:3px}
+
+/* ---------- visit ---------- */
+.visit .wrap{display:grid;grid-template-columns:1.2fr .8fr;gap:clamp(28px,4vw,56px);align-items:stretch}
+.map{border-radius:10px;overflow:hidden;border:1px solid var(--line);min-height:420px;background:var(--mist);position:relative;min-width:0}
+.map iframe{position:absolute;inset:0;width:100%;height:100%;border:0;filter:grayscale(.35) contrast(1.02)}
+.visit-info{display:grid;gap:22px;align-content:start;min-width:0}
+.info-block{display:grid;gap:6px;padding-bottom:20px;border-bottom:1px solid var(--line)}
+.info-block h3{font-size:1.35rem}
+.info-block p{color:var(--ink-soft)}
+.copy-row{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.copy-row code{font-family:var(--body);font-weight:500;color:var(--ink);user-select:all}
+.chip-btn{border:1px solid var(--line);background:var(--paper);border-radius:999px;padding:.3em .9em;font-size:.72rem;letter-spacing:.12em;text-transform:uppercase;cursor:pointer;transition:all .3s}
+.chip-btn:hover{border-color:var(--ink)}
+.park-list{display:grid;gap:10px;margin:6px 0 0;padding:0;list-style:none}
+.park-list li{display:flex;gap:12px;align-items:flex-start;color:var(--ink-soft);font-size:.95rem}
+.park-list .p{flex:none;width:26px;height:26px;border-radius:5px;background:var(--bleu);color:var(--paper);display:grid;place-items:center;font-weight:600;font-size:.85rem}
+@media (max-width:860px){.visit .wrap{grid-template-columns:1fr}.map{min-height:320px}}
+
+/* ---------- newsletter + footer ---------- */
+.news{border-top:1px solid var(--line)}
+.news .wrap{display:grid;grid-template-columns:1fr 1fr;gap:32px;align-items:end}
+.news h2{font-size:clamp(2rem,4.4vw,3.4rem)}
+.news form{display:flex;gap:10px;border-bottom:1px solid var(--ink);padding-bottom:10px}
+.news input{flex:1;border:0;background:transparent;padding:.6em 0;font-size:1.05rem;min-width:0}
+.news input:focus{outline:none}
+.news .ok{color:var(--ok);font-size:.92rem;margin-top:10px}
+@media (max-width:760px){.news .wrap{grid-template-columns:1fr}}
+footer{background:var(--ink);color:#DCE2EC;padding-block:64px calc(40px + env(safe-area-inset-bottom,0px))}
+footer .wrap{display:grid;grid-template-columns:1.4fr 1fr 1fr 1fr;gap:32px}
+footer .brand{color:#FFFFFF;font-size:2.6rem}
+footer h4{margin:0 0 12px;font-size:.72rem;letter-spacing:.18em;text-transform:uppercase;color:#9AA6B8;font-weight:500}
+footer p,footer a{color:#DCE2EC;font-size:.92rem;text-decoration:none}
+footer a:hover{color:#FFFFFF;text-decoration:underline}
+footer .legal{grid-column:1/-1;border-top:1px solid #2C3849;padding-top:22px;display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;font-size:.8rem;color:#9AA6B8}
+@media (max-width:760px){footer .wrap{grid-template-columns:1fr 1fr}footer .wrap>div:first-child{grid-column:1/-1}}
+
+/* ---------- FAQ bot ---------- */
+.bot-fab{position:fixed;right:calc(20px + env(safe-area-inset-right,0px));bottom:calc(20px + env(safe-area-inset-bottom,0px));z-index:80;display:flex;align-items:center;gap:10px;background:var(--ink);color:var(--paper);border:0;border-radius:999px;padding:12px 20px 12px 12px;cursor:pointer;box-shadow:0 20px 40px -16px rgba(22,32,46,.55);transition:transform .4s var(--ease)}
+.bot-fab:hover{transform:translateY(-3px)}
+.bot-fab .av{width:38px;height:38px;border-radius:50%;background:var(--paper);display:grid;place-items:center}
+.bot-fab .av svg{width:24px}
+.bot-fab span{font-size:.8rem;letter-spacing:.12em;text-transform:uppercase;font-weight:500}
+.bot-fab .badge{position:absolute;top:2px;left:40px;width:12px;height:12px;border-radius:50%;background:var(--butter);border:2px solid var(--ink)}
+.bot{position:fixed;right:calc(20px + env(safe-area-inset-right,0px));bottom:calc(20px + env(safe-area-inset-bottom,0px));z-index:85;width:min(390px,calc(100vw - 32px));height:min(600px,calc(100vh - 110px));background:var(--paper);border-radius:16px;box-shadow:0 40px 90px -30px rgba(22,32,46,.5);display:flex;flex-direction:column;overflow:hidden;transform-origin:bottom right;transform:scale(.4) translateY(40px);opacity:0;pointer-events:none;transition:transform .6s var(--ease),opacity .35s}
+.bot.open{transform:none;opacity:1;pointer-events:auto}
+.bot-head{display:flex;align-items:center;gap:12px;padding:16px 18px;border-bottom:1px solid var(--line)}
+.bot-head .av{width:40px;height:40px;border-radius:50%;background:var(--butter-tint);display:grid;place-items:center;flex:none}
+.bot-head .av svg{width:26px}
+.bot-head b{font-family:var(--display);font-weight:500;font-size:1.2rem;display:block;line-height:1.1}
+.bot-head small{color:var(--ok);font-size:.78rem}
+.bot-head .icon-btn{margin-left:auto;width:36px;height:36px}
+.bot-log{flex:1;overflow-y:auto;padding:18px;display:flex;flex-direction:column;gap:10px;scroll-behavior:smooth}
+.msg-b,.msg-u{max-width:85%;padding:11px 15px;border-radius:16px;font-size:.92rem;line-height:1.5;animation:msgIn .45s var(--ease) both;overflow-wrap:anywhere}
+.msg-b{background:var(--mist);border-bottom-left-radius:4px;align-self:flex-start}
+.msg-u{background:var(--ink);color:var(--paper);border-bottom-right-radius:4px;align-self:flex-end}
+.msg-b a{color:var(--bleu);font-weight:500}
+@keyframes msgIn{from{opacity:0;transform:translateY(10px) scale(.96)}to{opacity:1;transform:none}}
+.typing{display:flex;gap:4px;padding:14px 16px}
+.typing i{width:7px;height:7px;border-radius:50%;background:var(--ink-soft);animation:bounce 1.2s infinite}
+.typing i:nth-child(2){animation-delay:.15s}.typing i:nth-child(3){animation-delay:.3s}
+@keyframes bounce{0%,60%,100%{transform:none;opacity:.4}30%{transform:translateY(-5px);opacity:1}}
+.quick{display:flex;gap:6px;flex-wrap:wrap;padding:0 18px 12px}
+.quick button{border:1px solid var(--line);background:var(--paper);border-radius:999px;padding:.4em .9em;font-size:.8rem;cursor:pointer;transition:all .3s}
+.quick button:hover{border-color:var(--bleu);color:var(--bleu)}
+.bot-in{display:flex;gap:8px;padding:12px 14px calc(12px + env(safe-area-inset-bottom,0px));border-top:1px solid var(--line)}
+.bot-in input{flex:1;border:1px solid var(--line);border-radius:999px;padding:.7em 1.1em;min-width:0}
+.bot-in input:focus{outline:none;border-color:var(--bleu)}
+.bot-in button{width:44px;height:44px;border-radius:50%;border:0;background:var(--ink);color:var(--paper);cursor:pointer;display:grid;place-items:center;flex:none}
+.bot-in button svg{width:18px}
+
+/* toast */
+.toast{position:fixed;left:50%;bottom:calc(24px + env(safe-area-inset-bottom,0px));transform:translate(-50%,200%);visibility:hidden;background:var(--ink);color:var(--paper);padding:12px 22px;border-radius:999px;font-size:.88rem;z-index:95;transition:transform .5s var(--ease);max-width:calc(100vw - 32px)}
+.toast.show{transform:translate(-50%,0);visibility:visible}
+
+/* scroll reveal — content is visible by default; JS opts elements in */
+.rv{transition:opacity 1s var(--ease),transform 1s var(--ease)}
+.rv.pre{opacity:0;transform:translateY(36px)}
+.rv.d1{transition-delay:.1s}.rv.d2{transition-delay:.2s}.rv.d3{transition-delay:.3s}
+.progress{position:fixed;top:env(safe-area-inset-top,0px);left:0;height:2px;background:var(--bleu);z-index:65;width:100%;transform-origin:left;transform:scaleX(0)}
+
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation-duration:.001ms!important;animation-iteration-count:1!important;transition-duration:.001ms!important}
+  .rv.pre{opacity:1;transform:none}
+  html{scroll-behavior:auto}
+}
+</style>
+</head>
+<body>
+<div class="progress" id="progress"></div>
+
+<!-- ============ HEADER ============ -->
+<header class="top" id="top">
+  <div class="wrap">
+    <a href="#home" class="brand" aria-label="Môtier home">Môtier <small>Clifton · VA</small></a>
+    <nav class="nav" aria-label="Main">
+      <a class="link" href="#story">Our story</a>
+      <a class="link" href="#menu">Menu</a>
+      <a class="link" href="#hours">Hours</a>
+      <a class="link" href="#visit">Visit</a>
+      <a class="btn" href="#reserve">Book a table <span class="arr">→</span></a>
+      <button class="icon-btn sound-btn on" id="soundBtn" aria-label="Turn sound off" title="Sound">
+        <span class="bars"><i></i><i></i><i></i><i></i></span>
+      </button>
+      <button class="icon-btn menu-toggle" id="menuOpen" aria-label="Open menu">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M4 8h16M4 16h10"/></svg>
+      </button>
+    </nav>
+  </div>
+</header>
+
+<div class="drawer" id="drawer" aria-hidden="true">
+  <button class="icon-btn drawer-close" id="menuClose" aria-label="Close menu"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
+  <a href="#story">Our story <span>01</span></a>
+  <a href="#menu">Menu <span>02</span></a>
+  <a href="#hours">Hours <span>03</span></a>
+  <a href="#reserve">Book a table <span>04</span></a>
+  <a href="#visit">Visit &amp; parking <span>05</span></a>
+  <div class="foot">12644 Chapel Rd, Clifton, VA 20124<br>703-857-0700</div>
+</div>
+
+<main id="home">
+<!-- ============ HERO ============ -->
+<section class="hero">
+  <canvas id="flour" aria-hidden="true"></canvas>
+  <div class="wrap">
+    <div class="hero-copy">
+      <span class="eyebrow">Pâtisserie &amp; cuisine française</span>
+      <h1 class="wordmark" aria-label="Môtier"><span class="split">Môtier</span></h1>
+      <p class="tag">Bonjour et bienvenue. Butter, patience, and a French chef's hands, in the heart of old Clifton.</p>
+      <p class="sub">Croissants laminated by hand every morning, canelés with a dark caramel crust, a lunch chalkboard that changes daily, and a prix fixe dinner on Friday nights.</p>
+      <div class="status-pill" id="statusPill"><span class="dot"></span><span id="statusText">Checking today's hours…</span></div>
+      <div class="ctas">
+        <a class="btn" href="#reserve">Reserve a table <span class="arr">→</span></a>
+        <a class="btn ghost" href="#menu">See the menu</a>
+      </div>
+    </div>
+    <div class="hero-art" aria-hidden="true">
+      <figure class="ph main" data-fb="croissant">
+        <img class="parallax" data-speed="0.08" src="https://images.unsplash.com/photo-1555507036-ab1f4038808a?auto=format&fit=crop&w=1100&q=80" alt="">
+      </figure>
+      <figure class="ph small" data-fb="cup">
+        <img src="https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?auto=format&fit=crop&w=600&q=80" alt="">
+      </figure>
+      <div class="seal">
+        <svg viewBox="0 0 120 120"><defs><path id="circ" d="M60,60 m-46,0 a46,46 0 1,1 92,0 a46,46 0 1,1 -92,0"/></defs><text font-family="Jost, sans-serif" font-size="10.4" letter-spacing="3.2" fill="#1F3B6E"><textPath href="#circ">FAIT MAISON · CHAQUE MATIN · CLIFTON VA ·</textPath></text></svg>
+        <span class="c">M</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="marquee" aria-hidden="true">
+  <div class="track">
+    <span>Croissant au beurre</span><span>Pain au chocolat</span><span>Canelé de Bordeaux</span><span>Croissant amandes-chocolat</span><span>Tarte aux fruits</span><span>Coq au vin</span><span>Bœuf bourguignon</span><span>Baguette jambon-beurre</span>
+    <span>Croissant au beurre</span><span>Pain au chocolat</span><span>Canelé de Bordeaux</span><span>Croissant amandes-chocolat</span><span>Tarte aux fruits</span><span>Coq au vin</span><span>Bœuf bourguignon</span><span>Baguette jambon-beurre</span>
+  </div>
+</div>
+
+<!-- ============ STORY ============ -->
+<section class="section story" id="story">
+  <div class="wrap">
+    <figure class="story-art ph rv" data-fb="baguette">
+      <img class="parallax" data-speed="0.06" src="https://images.unsplash.com/photo-1509440159596-0249088772ff?auto=format&fit=crop&w=1000&q=80" alt="Fresh bread loaves on a bakery shelf">
+      <figcaption class="cap"><b>Chef Ivar Setiawan</b>Trained in France, baking in Clifton since 2021</figcaption>
+    </figure>
+    <div class="story-copy">
+      <span class="eyebrow rv">Our story</span>
+      <h2 class="rv d1">A little French house, named for <em>Lafayette</em>.</h2>
+      <p class="rv d2">Môtier takes its name from Gilbert du Motier, the Marquis de Lafayette, the Frenchman who crossed the Atlantic to stand with America. Chef Ivar Setiawan made a similar crossing: born in Indonesia, raised in France, and trained in its kitchens, he came to Clifton to cook in the town his mother called home.</p>
+      <p class="rv d2">The heart of the house is viennoiserie: croissants, pains au chocolat, and canelés baked each morning. At lunch, a short menu is written on the chalkboard by the door and changes with the market. On Friday nights, the room becomes a small dinner service with a prix fixe menu.</p>
+      <div class="facts rv d3">
+        <div><b data-count="2021">2021</b><span>Opened in Clifton</span></div>
+        <div><b data-count="3">3</b><span>Days of lamination per croissant</span></div>
+        <div><b data-count="1">1</b><span>Chalkboard, new every day</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ MENU ============ -->
+<section class="section menu" id="menu">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="eyebrow rv">La carte</span>
+      <h2 class="rv d1">From the morning oven to <em>Friday dinner</em>.</h2>
+      <p class="lede rv d2">A selection of what you'll find at the counter. Pastries sell out, so come early for the best choice.</p>
+    </div>
+    <div class="tabs" role="tablist" aria-label="Menu categories">
+      <button class="tab" role="tab" aria-selected="true" data-cat="viennoiserie" id="tab-v">Viennoiserie</button>
+      <button class="tab" role="tab" aria-selected="false" data-cat="patisserie" id="tab-p">Pâtisserie</button>
+      <button class="tab" role="tab" aria-selected="false" data-cat="dejeuner" id="tab-d">Lunch</button>
+      <button class="tab" role="tab" aria-selected="false" data-cat="diner" id="tab-n">Friday dinner</button>
+      <button class="tab" role="tab" aria-selected="false" data-cat="salon" id="tab-s">Salon de thé</button>
+    </div>
+    <div class="menu-grid" id="menuGrid" role="tabpanel" aria-live="polite"></div>
+    <div class="menu-note rv">
+      <span class="chalk">« Le menu du jour est sur l'ardoise. »</span>
+      <span>Today's lunch is on the chalkboard. Ask us about allergens; prices are posted at the counter.</span>
+    </div>
+  </div>
+</section>
+
+<!-- ============ GALLERY ============ -->
+<section class="section gallery" id="gallery">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="eyebrow rv">Dans la vitrine</span>
+      <h2 class="rv d1">What's in the <em>window</em> today.</h2>
+    </div>
+    <div class="gallery-grid">
+      <figure class="ph g1 rv" data-fb="croissant"><img loading="lazy" src="https://images.unsplash.com/photo-1623334044303-241021148842?auto=format&fit=crop&w=900&q=80" alt="Croissants fresh from the oven"><figcaption>Croissants</figcaption></figure>
+      <figure class="ph g2 rv d1" data-fb="macaron"><img loading="lazy" src="https://images.unsplash.com/photo-1569864358642-9d1684040f43?auto=format&fit=crop&w=800&q=80" alt="Pastel macarons"><figcaption>Macarons</figcaption></figure>
+      <figure class="ph g3 rv d2" data-fb="tart"><img loading="lazy" src="https://images.unsplash.com/photo-1519915028121-7d3463d20b13?auto=format&fit=crop&w=700&q=80" alt="Fruit tart"><figcaption>Tartes aux fruits</figcaption></figure>
+      <figure class="ph g4 rv" data-fb="eclair"><img loading="lazy" src="https://images.unsplash.com/photo-1486427944299-d1955d23e34d?auto=format&fit=crop&w=800&q=80" alt="Pastries on a plate"><figcaption>Pâtisserie</figcaption></figure>
+      <figure class="ph g5 rv d1" data-fb="cup"><img loading="lazy" src="https://images.unsplash.com/photo-1501339847302-ac426a4a7cbb?auto=format&fit=crop&w=800&q=80" alt="Café interior"><figcaption>Salon de thé</figcaption></figure>
+      <figure class="ph g6 rv" data-fb="baguette"><img loading="lazy" src="https://images.unsplash.com/photo-1549931319-a545dcf3bc73?auto=format&fit=crop&w=800&q=80" alt="Baguettes"><figcaption>Baguettes</figcaption></figure>
+      <figure class="ph g7 rv d1" data-fb="canele"><img loading="lazy" src="https://images.unsplash.com/photo-1517433670267-08bbd4be890f?auto=format&fit=crop&w=800&q=80" alt="Pastries at the counter"><figcaption>Au comptoir</figcaption></figure>
+    </div>
+  </div>
+</section>
+
+<!-- ============ HOURS ============ -->
+<section class="section hours" id="hours" style="background:var(--mist)">
+  <div class="wrap">
+    <div>
+      <div class="section-head" style="margin-bottom:28px">
+        <span class="eyebrow rv">Horaires</span>
+        <h2 class="rv d1">When the <em>ovens</em> are on.</h2>
+      </div>
+      <div class="hours-card rv d2">
+        <h3>Pâtisserie &amp; salon de thé <small>Counter &amp; tea room</small></h3>
+        <div class="row" data-dow="2"><span class="d">Tuesday</span><span class="t">8:00 am – 3:30 pm</span></div>
+        <div class="row" data-dow="3"><span class="d">Wednesday</span><span class="t">8:00 am – 3:30 pm</span></div>
+        <div class="row" data-dow="4"><span class="d">Thursday</span><span class="t">8:00 am – 3:30 pm</span></div>
+        <div class="row" data-dow="5"><span class="d">Friday</span><span class="t">8:00 am – 3:30 pm</span></div>
+        <div class="row" data-dow="6"><span class="d">Saturday</span><span class="t">9:00 am – 3:00 pm</span></div>
+        <div class="row" data-dow="0"><span class="d">Sunday</span><span class="t">9:00 am – 3:00 pm (winter)<br>8:30 am – 3:00 pm (summer)</span></div>
+        <div class="row off" data-dow="1"><span class="d">Monday</span><span class="t">Closed</span></div>
+      </div>
+    </div>
+    <div class="hours-card rv d2" style="align-content:start;padding-top:clamp(0px,8vw,150px)">
+      <h3>Lunch service <small>Tuesday – Sunday</small></h3>
+      <div class="row"><span class="d">Lunch</span><span class="t">11:30 am – 2:00 pm</span></div>
+      <h3 style="margin-top:34px">Friday prix fixe dinner <small>Fridays only</small></h3>
+      <div class="row"><span class="d">Dinner</span><span class="t">5:00 pm – 9:00 pm</span></div>
+      <div class="row"><span class="d">Last order</span><span class="t">8:00 pm</span></div>
+      <div class="notice">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>
+        <span>Tables are limited, so booking ahead for Friday dinner is recommended. You can reserve below or call us at <b>703-857-0700</b>.</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ RESERVATION ============ -->
+<section class="section reserve" id="reserve">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="eyebrow rv">Réservation</span>
+      <h2 class="rv d1">Save your seat at <em>the table</em>.</h2>
+      <p class="lede rv d2">Pick a day, choose a time, and tell us how you're getting here. We're a small room, so parties of 9 or more, please call.</p>
+    </div>
+
+    <div class="booker rv">
+      <div class="steps" aria-hidden="true">
+        <div class="step cur" id="st1"><b>1</b><span>Date</span></div>
+        <div class="step" id="st2"><b>2</b><span>Time</span></div>
+        <div class="step" id="st3"><b>3</b><span>Details</span></div>
+      </div>
+
+      <div class="pane">
+        <h3>Choose a date</h3>
+        <p class="hint">Closed Mondays. Blue dots mark Friday dinner nights.</p>
+        <div class="cal-head">
+          <strong id="calTitle">Month</strong>
+          <div class="cal-nav">
+            <button id="calPrev" aria-label="Previous month"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M15 6l-6 6 6 6"/></svg></button>
+            <button id="calNext" aria-label="Next month"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M9 6l6 6-6 6"/></svg></button>
+          </div>
+        </div>
+        <div class="cal" id="cal" role="grid"></div>
+        <div class="cal-legend"><span><i style="background:var(--butter)"></i>Today</span><span><i style="background:var(--bleu)"></i>Friday dinner</span><span><i style="background:#B7BEC9"></i>Closed</span></div>
+
+        <div style="margin-top:30px">
+          <h3>Choose a time</h3>
+          <p class="hint" id="slotHint">Select a date to see open times.</p>
+          <div class="slots" id="slots"></div>
+        </div>
+      </div>
+
+      <div class="pane">
+        <h3>Your details</h3>
+        <p class="hint">We'll hold your table for 15 minutes past your time.</p>
+        <form class="form" id="bookForm" novalidate>
+          <div class="summary" id="summary"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></svg><span id="summaryText">No date or time selected yet</span></div>
+          <div class="field">
+            <span class="lbl">Party size</span>
+            <div class="stepper"><button type="button" id="ppMinus" aria-label="Fewer guests">−</button><output id="pp">2 guests</output><button type="button" id="ppPlus" aria-label="More guests">+</button></div>
+            <span class="msg" id="ppMsg"></span>
+          </div>
+          <div class="two">
+            <div class="field" id="f-name"><label for="bName">Full name</label><input id="bName" autocomplete="name" placeholder="Camille Durand"><span class="msg"></span></div>
+            <div class="field" id="f-phone"><label for="bPhone">Phone</label><input id="bPhone" type="tel" autocomplete="tel" placeholder="(703) 555-0142"><span class="msg"></span></div>
+          </div>
+          <div class="field" id="f-email"><label for="bEmail">Email</label><input id="bEmail" type="email" autocomplete="email" placeholder="camille@example.com"><span class="msg"></span></div>
+          <div class="field">
+            <label for="bOcc">Occasion (optional)</label>
+            <select id="bOcc"><option value="">None</option><option>Birthday</option><option>Anniversary</option><option>Date night</option><option>Business</option><option>Celebration</option></select>
+          </div>
+          <div class="field">
+            <span class="lbl">How are you arriving?</span>
+            <div class="choice">
+              <label><input type="radio" name="park" id="parkCar" value="car" checked><span><b>Driving</b><br><small>Show me where to park</small></span></label>
+              <label><input type="radio" name="park" id="parkWalk" value="walk"><span><b>Walking or drop-off</b><br><small>No parking needed</small></span></label>
+            </div>
+          </div>
+          <div class="field"><label for="bNotes">Notes for the chef (optional)</label><textarea id="bNotes" placeholder="Allergies, high chair, a window seat…"></textarea></div>
+          <button class="btn" type="submit" id="bookBtn">Request reservation <span class="arr">→</span></button>
+          <p class="small-note" id="demoNote">Preview mode: requests are saved in this browser only until an online booking service is connected.</p>
+        </form>
+      </div>
+    </div>
+    <div class="mine" id="mine"></div>
+  </div>
+</section>
+
+<!-- ============ VISIT ============ -->
+<section class="section visit" id="visit">
+  <div class="wrap">
+    <div class="map rv">
+      <iframe title="Map to Môtier, 12644 Chapel Rd, Clifton VA" loading="lazy" referrerpolicy="no-referrer-when-downgrade" src="https://www.google.com/maps?q=12644+Chapel+Rd,+Clifton,+VA+20124&z=17&output=embed"></iframe>
+    </div>
+    <div class="visit-info">
+      <div class="section-head" style="margin-bottom:0">
+        <span class="eyebrow rv">Nous trouver</span>
+        <h2 class="rv d1" style="font-size:clamp(2.2rem,4.6vw,3.4rem)">Visit &amp; <em>parking</em></h2>
+      </div>
+      <div class="info-block rv d1">
+        <h3>Address</h3>
+        <div class="copy-row"><code id="addr">12644 Chapel Rd, Clifton, VA 20124</code><button class="chip-btn" data-copy="#addr">Copy</button></div>
+        <p>In the historic town center of Clifton.</p>
+        <div class="copy-row" style="margin-top:6px"><a class="btn ghost" href="https://www.google.com/maps/dir/?api=1&destination=12644+Chapel+Rd,+Clifton,+VA+20124" target="_blank" rel="noopener">Get directions <span class="arr">↗</span></a></div>
+      </div>
+      <div class="info-block rv d2">
+        <h3>Where to park</h3>
+        <!-- OWNER: confirm these notes against the real lot/street rules before launch -->
+        <ul class="park-list" id="parkList">
+          <li><span class="p">P</span><span><b>Street parking on Chapel Road</b>, a few steps from our door. Spaces fill quickly on weekend mornings.</span></li>
+          <li><span class="p">P</span><span><b>Town center parking</b> along Main Street, about a two-minute walk.</span></li>
+          <li><span class="p">♿</span><span>Need an accessible drop-off? Call ahead and we'll help.</span></li>
+        </ul>
+      </div>
+      <div class="info-block rv d3">
+        <h3>Contact</h3>
+        <div class="copy-row"><code id="phone">703-857-0700</code><button class="chip-btn" data-copy="#phone">Copy</button></div>
+        <div class="copy-row"><code id="mail">contact@motierclifton.com</code><button class="chip-btn" data-copy="#mail">Copy</button></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ NEWSLETTER ============ -->
+<section class="section news">
+  <div class="wrap">
+    <div>
+      <span class="eyebrow">La lettre</span>
+      <h2 style="margin-top:14px">Delicious news, <em style="color:var(--bleu)">now and then</em>.</h2>
+    </div>
+    <div>
+      <form id="newsForm" novalidate>
+        <label for="nEmail" class="sr" style="position:absolute;left:-9999px">Email address</label>
+        <input id="nEmail" type="email" placeholder="Your email address" autocomplete="email">
+        <button class="btn" type="submit">Sign up</button>
+      </form>
+      <p class="ok" id="newsOk" hidden>Merci ! We're looking forward to seeing you.</p>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div>
+      <div class="brand">Môtier</div>
+      <p style="margin-top:12px;max-width:34ch">French pastry &amp; cuisine by a French-trained chef, in Clifton, Virginia.</p>
+    </div>
+    <div><h4>Visit</h4><p>12644 Chapel Rd<br>Clifton, VA 20124</p></div>
+    <div><h4>Contact</h4><p>703-857-0700<br>contact@motierclifton.com</p></div>
+    <div><h4>Follow</h4><p><a href="https://instagram.com/motier_clifton" target="_blank" rel="noopener">Instagram ↗</a></p><p style="margin-top:8px"><a href="#reserve">Book a table</a></p></div>
+    <div class="legal"><span>© <span id="yr">2026</span> Môtier French Pastry &amp; Cuisine</span><span>Fait avec du beurre à Clifton</span></div>
+  </div>
+</footer>
+
+<!-- ============ FAQ BOT ============ -->
+<button class="bot-fab" id="botFab" aria-label="Open the FAQ assistant"><span class="av" id="fabAv"></span><span>Questions ?</span><i class="badge"></i></button>
+<div class="bot" id="bot" role="dialog" aria-label="Môtier FAQ assistant">
+  <div class="bot-head">
+    <span class="av" id="headAv"></span>
+    <div><b>Camille</b><small>● Môtier's assistant</small></div>
+    <button class="icon-btn" id="botClose" aria-label="Close chat"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
+  </div>
+  <div class="bot-log" id="botLog" aria-live="polite"></div>
+  <div class="quick" id="quick"></div>
+  <form class="bot-in" id="botForm">
+    <input id="botInput" placeholder="Ask about hours, parking, menu…" autocomplete="off" aria-label="Your question">
+    <button type="submit" aria-label="Send"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 12h15M13 6l6 6-6 6"/></svg></button>
+  </form>
+</div>
+
+<!-- ============ CONFIRMATION ============ -->
+<div class="ticket-wrap" id="ticketWrap" aria-hidden="true">
+  <div class="ticket" role="dialog" aria-label="Reservation confirmation">
+    <span class="stamp">Merci !</span>
+    <div class="t-top">
+      <span class="eyebrow" style="justify-content:center">Reservation requested</span>
+      <h3 id="tName">À bientôt</h3>
+      <span class="code" id="tCode">MT-0000</span>
+    </div>
+    <div class="perf"></div>
+    <div class="t-body">
+      <div class="t-grid">
+        <div><span>Date</span><b id="tDate">—</b></div>
+        <div><span>Time</span><b id="tTime">—</b></div>
+        <div><span>Guests</span><b id="tGuests">—</b></div>
+        <div><span>Service</span><b id="tService">—</b></div>
+      </div>
+      <div class="t-park" id="tPark">
+        <svg viewBox="0 0 32 32"><rect width="32" height="32" rx="6" fill="#1F3B6E"/><path d="M11 24V8h6a5 5 0 010 10h-6" fill="none" stroke="#fff" stroke-width="2.6"/></svg>
+        <span><b>Parking:</b> street parking on Chapel Road right by our door, or along Main Street, a two-minute walk. Address: 12644 Chapel Rd, Clifton, VA 20124.</span>
+      </div>
+      <div class="t-actions">
+        <a class="btn" id="icsBtn" href="#">Add to calendar</a>
+        <a class="btn ghost" href="https://www.google.com/maps/dir/?api=1&destination=12644+Chapel+Rd,+Clifton,+VA+20124" target="_blank" rel="noopener">Directions ↗</a>
+        <button class="btn ghost" id="tClose" type="button">Done</button>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="toast" id="toast" role="status"></div>
+
+<script>
+document.documentElement.classList.add('js');
+(function(){
+"use strict";
+const $=(s,r=document)=>r.querySelector(s), $$=(s,r=document)=>[...r.querySelectorAll(s)];
+const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
+const store={get(k,d){try{const v=localStorage.getItem(k);return v==null?d:JSON.parse(v)}catch(e){return d}},set(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}}};
+
+/* ================= SOUND ENGINE (Web Audio, synthesized) ================= */
+const Sound=(()=>{
+  let ctx=null, master=null, on=store.get('motier-sound',true);
+  function init(){ if(ctx) return; try{ctx=new (window.AudioContext||window.webkitAudioContext)(); master=ctx.createGain(); master.gain.value=.5; master.connect(ctx.destination);}catch(e){} }
+  function tone(freq,dur,{type='sine',vol=.2,attack=.005,slideTo=null,delay=0}={}){
+    if(!on||!ctx) return; const t=ctx.currentTime+delay;
+    const o=ctx.createOscillator(), g=ctx.createGain(); o.type=type; o.frequency.setValueAtTime(freq,t);
+    if(slideTo) o.frequency.exponentialRampToValueAtTime(slideTo,t+dur);
+    g.gain.setValueAtTime(0,t); g.gain.linearRampToValueAtTime(vol,t+attack); g.gain.exponentialRampToValueAtTime(.0001,t+dur);
+    o.connect(g); g.connect(master); o.start(t); o.stop(t+dur+.05);
+  }
+  function noise(dur,{vol=.08,from=400,to=3000,q=1.2,delay=0}={}){
+    if(!on||!ctx) return; const t=ctx.currentTime+delay;
+    const len=Math.floor(ctx.sampleRate*dur), buf=ctx.createBuffer(1,len,ctx.sampleRate), d=buf.getChannelData(0);
+    for(let i=0;i<len;i++) d[i]=(Math.random()*2-1);
+    const src=ctx.createBufferSource(); src.buffer=buf;
+    const f=ctx.createBiquadFilter(); f.type='bandpass'; f.Q.value=q; f.frequency.setValueAtTime(from,t); f.frequency.exponentialRampToValueAtTime(to,t+dur);
+    const g=ctx.createGain(); g.gain.setValueAtTime(0,t); g.gain.linearRampToValueAtTime(vol,t+dur*.3); g.gain.exponentialRampToValueAtTime(.0001,t+dur);
+    src.connect(f); f.connect(g); g.connect(master); src.start(t); src.stop(t+dur);
+  }
+  let lastHover=0;
+  const fx={
+    tap(){tone(660,.09,{vol:.12,slideTo:520});},
+    hover(){const n=performance.now(); if(n-lastHover<70) return; lastHover=n; tone(1800,.04,{vol:.025,type:'triangle'});},
+    select(){tone(880,.12,{vol:.12,type:'triangle'}); tone(1320,.16,{vol:.07,delay:.05});},
+    whoosh(){noise(.45,{vol:.09,from:300,to:2600});},
+    close(){noise(.3,{vol:.06,from:2400,to:300});},
+    pop(){tone(520,.12,{vol:.14,slideTo:980});},
+    send(){tone(740,.08,{vol:.1,slideTo:1100});},
+    error(){tone(220,.18,{vol:.12,type:'triangle'}); tone(180,.22,{vol:.1,type:'triangle',delay:.1});},
+    // shop bell for confirmations: inharmonic partials
+    bell(){[1046,1568,2093,2637].forEach((f,i)=>tone(f,1.6-i*.25,{vol:.11/(i+1),delay:i*.01})); [1175,1760].forEach((f,i)=>tone(f,1.2,{vol:.05,delay:.18+i*.01}));},
+    page(){noise(.18,{vol:.05,from:1800,to:5000,q:.6});}
+  };
+  return {init,fx,get on(){return on},set on(v){on=v;store.set('motier-sound',v)}};
+})();
+const play=(n)=>{Sound.init(); if(Sound.fx[n]) Sound.fx[n]();};
+window.addEventListener('pointerdown',()=>Sound.init(),{once:true});
+const soundBtn=$('#soundBtn');
+function paintSound(){soundBtn.classList.toggle('on',Sound.on);soundBtn.setAttribute('aria-label',Sound.on?'Turn sound off':'Turn sound on');}
+paintSound();
+soundBtn.addEventListener('click',()=>{Sound.on=!Sound.on;paintSound();Sound.init();if(Sound.on)play('select');toast(Sound.on?'Sound on':'Sound off');});
+
+/* global UI sounds + ripple */
+document.addEventListener('click',e=>{
+  const b=e.target.closest('.btn'); if(!b) return;
+  const r=b.getBoundingClientRect(), s=document.createElement('span'), size=Math.max(r.width,r.height);
+  s.className='ripple'; s.style.width=s.style.height=size+'px'; s.style.left=(e.clientX-r.left-size/2)+'px'; s.style.top=(e.clientY-r.top-size/2)+'px';
+  b.appendChild(s); setTimeout(()=>s.remove(),700);
+  if(b.id!=='bookBtn') play('tap');
+});
+document.addEventListener('pointerover',e=>{ if(e.pointerType==='mouse' && e.target.closest('.btn,.tab,.slot,.cal button:not(:disabled),.nav a,.chip-btn')) play('hover'); });
+
+/* ================= ILLUSTRATIONS (hand-drawn SVG) ================= */
+const INK='#16202E', GOLD='#E2B867', GOLD2='#C99A4B', CAR='#8A4B22', BLEU='#1F3B6E', CREAM='#FFF6E6';
+const ILL={
+croissant:`<svg viewBox="0 0 140 90" fill="none" stroke="${INK}" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"><path d="M8 62 Q16 40 34 36 Q46 18 70 16 Q94 18 106 36 Q124 40 132 62 Q116 56 104 60 Q92 50 70 50 Q48 50 36 60 Q24 56 8 62Z" fill="${GOLD}"/><path d="M34 36 Q40 48 36 60M52 22 Q58 36 54 51M70 16 Q72 34 70 50M88 22 Q82 36 86 51M106 36 Q100 48 104 60" /><path d="M48 28 Q56 26 60 30M80 30 Q86 26 92 28" stroke="${CREAM}" stroke-width="2.4"/></svg>`,
+painchoc:`<svg viewBox="0 0 140 90" fill="none" stroke="${INK}" stroke-width="2" stroke-linejoin="round"><rect x="20" y="26" width="100" height="44" rx="14" fill="${GOLD}"/><path d="M20 44 Q70 36 120 44M20 56 Q70 50 120 56"/><rect x="28" y="38" width="10" height="20" rx="3" fill="#4A2A16"/><rect x="102" y="38" width="10" height="20" rx="3" fill="#4A2A16"/><path d="M40 32 Q60 30 76 33" stroke="${CREAM}" stroke-width="2.4" stroke-linecap="round"/></svg>`,
+almond:`<svg viewBox="0 0 140 90" fill="none" stroke="${INK}" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"><path d="M8 62 Q16 40 34 36 Q46 18 70 16 Q94 18 106 36 Q124 40 132 62 Q116 56 104 60 Q92 50 70 50 Q48 50 36 60 Q24 56 8 62Z" fill="${GOLD2}"/><g fill="${CREAM}" stroke="${INK}" stroke-width="1.4"><ellipse cx="50" cy="32" rx="6" ry="3" transform="rotate(-20 50 32)"/><ellipse cx="66" cy="26" rx="6" ry="3" transform="rotate(10 66 26)"/><ellipse cx="84" cy="30" rx="6" ry="3" transform="rotate(30 84 30)"/><ellipse cx="74" cy="40" rx="6" ry="3" transform="rotate(-10 74 40)"/><ellipse cx="58" cy="42" rx="6" ry="3" transform="rotate(25 58 42)"/></g><path d="M40 20 l2 2M98 22 l-2 2M70 8 v3" stroke="${INK}"/></svg>`,
+canele:`<svg viewBox="0 0 140 100" fill="none" stroke="${INK}" stroke-width="2" stroke-linejoin="round"><path d="M42 26 Q70 16 98 26 L104 82 Q70 92 36 82 Z" fill="${CAR}"/><ellipse cx="70" cy="26" rx="28" ry="8" fill="#5C2E12"/><path d="M50 28 L46 85M60 30 L58 88M70 31 V89M80 30 L82 88M90 28 L94 85" stroke="#2E170A"/><path d="M58 22 Q70 19 82 22" stroke="${GOLD}" stroke-width="2.2" stroke-linecap="round"/></svg>`,
+tart:`<svg viewBox="0 0 140 90" fill="none" stroke="${INK}" stroke-width="2"><ellipse cx="70" cy="52" rx="56" ry="20" fill="${GOLD}"/><ellipse cx="70" cy="46" rx="48" ry="15" fill="${CREAM}"/><path d="M14 52 v8 Q70 88 126 60 v-8" fill="${GOLD2}"/><g stroke-width="1.6"><circle cx="50" cy="44" r="6" fill="#C2334A"/><circle cx="64" cy="40" r="5" fill="#3B3F8F"/><circle cx="78" cy="44" r="6" fill="#C2334A"/><circle cx="92" cy="42" r="5" fill="#3B3F8F"/><circle cx="70" cy="50" r="5" fill="#E5862B"/><circle cx="56" cy="51" r="4" fill="#3B3F8F"/><circle cx="86" cy="51" r="4" fill="#C2334A"/></g><path d="M66 30 q2-8 8-10" stroke="#3E7A45" stroke-width="2.2" stroke-linecap="round"/></svg>`,
+chocotart:`<svg viewBox="0 0 140 90" fill="none" stroke="${INK}" stroke-width="2"><ellipse cx="70" cy="52" rx="56" ry="20" fill="${GOLD}"/><ellipse cx="70" cy="46" rx="48" ry="15" fill="#3A2116"/><path d="M14 52 v8 Q70 88 126 60 v-8" fill="${GOLD2}"/><path d="M44 44 Q60 40 74 44" stroke="#8C5A3C" stroke-width="2.2" stroke-linecap="round"/><circle cx="88" cy="42" r="3" fill="${GOLD}" stroke="none"/></svg>`,
+macaron:`<svg viewBox="0 0 140 90" fill="none" stroke="${INK}" stroke-width="2"><path d="M30 44 Q30 22 70 22 Q110 22 110 44 Z" fill="#F2B8C6"/><rect x="28" y="44" width="84" height="10" rx="5" fill="${CREAM}"/><path d="M30 54 H110 Q110 74 70 74 Q30 74 30 54Z" fill="#F2B8C6"/><path d="M32 44 h76M32 54h76" stroke-dasharray="2 3"/></svg>`,
+eclair:`<svg viewBox="0 0 140 90" fill="none" stroke="${INK}" stroke-width="2" stroke-linejoin="round"><rect x="14" y="38" width="112" height="28" rx="14" fill="${GOLD}"/><path d="M18 46 Q18 34 32 34 H108 Q122 34 122 46 Q70 54 18 46Z" fill="#3A2116"/><path d="M40 38 Q60 36 80 38" stroke="#8C5A3C" stroke-width="2" stroke-linecap="round"/></svg>`,
+baguette:`<svg viewBox="0 0 140 90" fill="none" stroke="${INK}" stroke-width="2" stroke-linecap="round"><path d="M14 70 Q8 62 18 54 L112 18 Q126 14 128 24 Q130 32 120 36 L26 72 Q18 76 14 70Z" fill="${GOLD}"/><path d="M36 58 Q44 52 52 50M56 50 Q64 44 72 42M76 42 Q84 36 92 34M96 34 Q104 28 112 26" stroke="${CREAM}" stroke-width="3"/></svg>`,
+sandwich:`<svg viewBox="0 0 140 90" fill="none" stroke="${INK}" stroke-width="2" stroke-linejoin="round"><path d="M14 52 Q14 36 34 34 H106 Q126 36 126 52 Z" fill="${GOLD}"/><path d="M16 52 Q30 46 44 52 Q58 58 72 52 Q86 46 100 52 Q114 58 124 52" fill="#E8A3A3" stroke="${INK}"/><path d="M18 56 Q70 62 122 56" stroke="#5E9A4E" stroke-width="4"/><path d="M14 58 Q14 70 34 70 H106 Q126 70 126 58Z" fill="${GOLD}"/></svg>`,
+cocotte:`<svg viewBox="0 0 140 90" fill="none" stroke="${INK}" stroke-width="2" stroke-linejoin="round"><path d="M10 6 q4 6 0 12M70 4 q4 6 0 12M100 8 q4 6 0 12" stroke="${INK}" stroke-opacity=".35" stroke-linecap="round" transform="translate(-6 10)"/><path d="M24 40 H116 V62 Q116 80 96 80 H44 Q24 80 24 62Z" fill="${BLEU}"/><path d="M18 40 H122" stroke-width="3"/><path d="M24 48 H14 M116 48 H126" stroke-width="4" stroke-linecap="round"/><ellipse cx="70" cy="36" rx="40" ry="7" fill="#7A2F23"/><circle cx="58" cy="35" r="4" fill="#E5862B" stroke="none"/><circle cx="80" cy="34" r="3" fill="#F2E2C4" stroke="none"/></svg>`,
+salad:`<svg viewBox="0 0 140 90" fill="none" stroke="${INK}" stroke-width="2" stroke-linejoin="round"><path d="M16 44 H124 Q120 78 70 78 Q20 78 16 44Z" fill="${CREAM}"/><path d="M26 44 Q34 26 48 36 Q56 20 70 32 Q84 20 92 36 Q106 26 114 44" fill="#7DB36A"/><path d="M56 40 l12-12 l14 10 l-12 10Z" fill="${GOLD}"/><path d="M60 38 l20 0" stroke="${CREAM}"/></svg>`,
+ratatouille:`<svg viewBox="0 0 140 90" fill="none" stroke="${INK}" stroke-width="2"><ellipse cx="70" cy="52" rx="58" ry="22" fill="${CREAM}"/><g stroke-width="1.5"><circle cx="40" cy="50" r="9" fill="#C2334A"/><circle cx="54" cy="46" r="9" fill="#E8C14A"/><circle cx="68" cy="50" r="9" fill="#5E9A4E"/><circle cx="82" cy="46" r="9" fill="#7A3C6E"/><circle cx="96" cy="50" r="9" fill="#C2334A"/><circle cx="62" cy="58" r="8" fill="#E8C14A"/><circle cx="78" cy="58" r="8" fill="#5E9A4E"/></g></svg>`,
+cup:`<svg viewBox="0 0 140 100" fill="none" stroke="${INK}" stroke-width="2" stroke-linecap="round"><path d="M56 14 q6 8 0 16M70 10 q6 8 0 16M84 14 q6 8 0 16" stroke-opacity=".5"/><path d="M34 40 H100 V58 Q100 80 76 80 H58 Q34 80 34 58Z" fill="#FFFFFF"/><path d="M100 46 Q118 46 116 58 Q114 68 98 66" /><ellipse cx="67" cy="40" rx="33" ry="6" fill="#8C5A3C"/><ellipse cx="67" cy="86" rx="46" ry="6" fill="${CREAM}"/><path d="M40 52 H94" stroke="${BLEU}" stroke-width="3"/></svg>`,
+chaud:`<svg viewBox="0 0 140 100" fill="none" stroke="${INK}" stroke-width="2" stroke-linecap="round"><path d="M56 14 q6 8 0 16M74 12 q6 8 0 16" stroke-opacity=".5"/><path d="M40 36 H96 L92 82 Q90 88 84 88 H52 Q46 88 44 82Z" fill="#FFFFFF"/><ellipse cx="68" cy="36" rx="28" ry="5" fill="#4A2A16"/><path d="M96 46 Q112 48 110 60 Q108 70 93 68"/><path d="M44 60 H92" stroke="${BLEU}" stroke-width="3"/></svg>`,
+quiche:`<svg viewBox="0 0 140 90" fill="none" stroke="${INK}" stroke-width="2"><ellipse cx="70" cy="52" rx="56" ry="20" fill="${GOLD2}"/><ellipse cx="70" cy="46" rx="48" ry="15" fill="#F3D27A"/><path d="M14 52 v8 Q70 88 126 60 v-8" fill="${GOLD}"/><g fill="#5E9A4E" stroke="none"><circle cx="52" cy="44" r="3"/><circle cx="76" cy="40" r="3"/><circle cx="88" cy="48" r="3"/></g><g fill="#E8A3A3" stroke="none"><rect x="60" y="46" width="6" height="4" rx="1"/><rect x="82" y="42" width="6" height="4" rx="1"/></g></svg>`,
+dessert:`<svg viewBox="0 0 140 90" fill="none" stroke="${INK}" stroke-width="2" stroke-linejoin="round"><ellipse cx="70" cy="72" rx="52" ry="8" fill="${CREAM}"/><path d="M40 66 V40 Q40 30 70 30 Q100 30 100 40 V66Z" fill="#F3E3C3"/><path d="M40 48 Q70 54 100 48" stroke="${GOLD2}" stroke-width="3"/><ellipse cx="70" cy="34" rx="30" ry="6" fill="${CAR}"/><path d="M60 30 Q70 26 80 30" stroke="${GOLD}" stroke-width="2"/></svg>`,
+bot:`<svg viewBox="0 0 40 40" fill="none" stroke="${INK}" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M10 18 Q8 10 16 10 Q18 4 24 6 Q32 4 32 12 Q36 16 31 19Z" fill="#FFFFFF"/><path d="M12 19 H30 V22 H12Z" fill="${BLEU}" stroke="${BLEU}"/><circle cx="17" cy="27" r="1.2" fill="${INK}"/><circle cx="25" cy="27" r="1.2" fill="${INK}"/><path d="M17 31 Q21 34 25 31"/></svg>`
+};
+$('#fabAv').innerHTML=ILL.bot; $('#headAv').innerHTML=ILL.bot;
+
+/* photo fallback → illustration */
+function fallback(fig){ if(fig.classList.contains('failed')) return; fig.classList.add('failed'); const d=document.createElement('div'); d.className='fallback'; d.innerHTML=ILL[fig.dataset.fb]||ILL.croissant; fig.prepend(d); }
+$$('figure.ph img').forEach(img=>{ const fig=img.closest('figure'); img.addEventListener('error',()=>fallback(fig)); if(img.complete && img.naturalWidth===0 && img.src) fallback(fig); });
+
+/* ================= SPLIT WORDMARK ================= */
+const sp=$('.split'); if(sp){ const t=sp.textContent; sp.innerHTML=[...t].map((c,i)=>`<span class="ch" style="animation-delay:${.08*i+.1}s" aria-hidden="true">${c}</span>`).join(''); }
+
+/* ================= HEADER, PROGRESS, PARALLAX ================= */
+const top=$('#top'), prog=$('#progress'); let lastY=0, ticking=false;
+const parallax=$$('.parallax');
+function onScroll(){
+  const y=scrollY, h=document.documentElement.scrollHeight-innerHeight;
+  top.classList.toggle('scrolled',y>20);
+  top.classList.toggle('hide',y>lastY && y>500 && !drawer.classList.contains('open'));
+  lastY=y; prog.style.transform=`scaleX(${h>0?y/h:0})`;
+  if(!reduce) parallax.forEach(el=>{ const r=el.parentElement.getBoundingClientRect(); const c=r.top+r.height/2-innerHeight/2; el.style.setProperty('--py',(-c*(+el.dataset.speed||.06))+'px'); });
+  // active nav link
+  let cur=''; ['story','menu','hours','reserve','visit'].forEach(id=>{const s=document.getElementById(id); if(s && s.getBoundingClientRect().top<innerHeight*.4) cur=id;});
+  $$('.nav a.link').forEach(a=>a.classList.toggle('active',a.getAttribute('href')==='#'+cur));
+  ticking=false;
+}
+addEventListener('scroll',()=>{ if(!ticking){requestAnimationFrame(onScroll);ticking=true;} },{passive:true});
+
+/* mobile drawer */
+const drawer=$('#drawer');
+function setDrawer(o){ drawer.classList.toggle('open',o); drawer.setAttribute('aria-hidden',!o); document.body.style.overflow=o?'hidden':''; play(o?'whoosh':'close'); }
+$('#menuOpen').addEventListener('click',()=>setDrawer(true));
+$('#menuClose').addEventListener('click',()=>setDrawer(false));
+$$('#drawer a').forEach(a=>a.addEventListener('click',()=>setDrawer(false)));
+
+/* ================= SCROLL REVEAL (opt-in, only below the fold) ================= */
+if('IntersectionObserver' in window && !reduce){
+  const io=new IntersectionObserver(es=>es.forEach(e=>{ if(e.isIntersecting){ e.target.classList.remove('pre'); io.unobserve(e.target); if(e.target.querySelector('[data-count]')) countUp(e.target); } }),{threshold:.15,rootMargin:'0px 0px -40px 0px'});
+  $$('.rv').forEach(el=>{ if(el.getBoundingClientRect().top>innerHeight){ el.classList.add('pre'); io.observe(el);} });
+}
+function countUp(root){ $$('[data-count]',root).forEach(el=>{ const end=+el.dataset.count, start=end>100?end-25:0, t0=performance.now(), dur=1400; (function f(t){ const p=Math.min(1,(t-t0)/dur), e=1-Math.pow(1-p,3); el.textContent=Math.round(start+(end-start)*e); if(p<1) requestAnimationFrame(f); })(t0); }); }
+
+/* ================= FLOUR DUST CANVAS ================= */
+(function(){
+  const c=$('#flour'); if(!c||reduce) return; const x=c.getContext('2d'); let w,h,parts=[],dpr=Math.min(devicePixelRatio||1,2), mx=-999,my=-999;
+  function size(){ const r=c.getBoundingClientRect(); w=r.width; h=r.height; c.width=w*dpr; c.height=h*dpr; x.setTransform(dpr,0,0,dpr,0,0); parts=Array.from({length:Math.round(w*h/14000)},()=>({x:Math.random()*w,y:Math.random()*h,r:Math.random()*1.8+.4,vx:(Math.random()-.5)*.15,vy:Math.random()*.25+.05,a:Math.random()*.5+.15,ph:Math.random()*6.28})); }
+  size(); addEventListener('resize',size);
+  c.parentElement.addEventListener('pointermove',e=>{const r=c.getBoundingClientRect(); mx=e.clientX-r.left; my=e.clientY-r.top;});
+  let vis=true; new IntersectionObserver(([e])=>vis=e.isIntersecting).observe(c);
+  (function loop(t){ requestAnimationFrame(loop); if(!vis) return; x.clearRect(0,0,w,h);
+    for(const p of parts){ p.ph+=.01; p.x+=p.vx+Math.sin(p.ph)*.12; p.y+=p.vy;
+      const dx=p.x-mx, dy=p.y-my, d=Math.hypot(dx,dy); if(d<90){ p.x+=dx/d*1.6; p.y+=dy/d*1.6; }
+      if(p.y>h+5){p.y=-5;p.x=Math.random()*w} if(p.x<-5)p.x=w+5; if(p.x>w+5)p.x=-5;
+      x.beginPath(); x.arc(p.x,p.y,p.r,0,6.283); x.fillStyle=`rgba(201,154,75,${p.a})`; x.fill(); }
+  })();
+})();
+
+/* ================= MENU ================= */
+const MENU={
+ viennoiserie:[
+  {n:'Croissant au beurre',fr:'The house croissant',d:'Laminated by hand with French-style butter. Shatters at the edges, honeycombed inside.',i:'croissant',t:['Morning']},
+  {n:'Pain au chocolat',fr:'Chocolatine',d:'Two batons of dark chocolate folded into croissant dough.',i:'painchoc',t:['Morning']},
+  {n:'Croissant amandes-chocolat',fr:'Chocolate-almond croissant',d:'Twice-baked with almond cream and chocolate, finished with toasted almonds.',i:'almond',t:['Favourite']},
+  {n:'Canelé de Bordeaux',fr:'Burnt-bottom canelé',d:'Rum and vanilla custard inside a dark, caramelized crust. Crisp outside, tender within.',i:'canele',t:['Signature']}
+ ],
+ patisserie:[
+  {n:'Tarte aux fruits',fr:'Seasonal fruit tart',d:'Pastry rolled paper-thin, vanilla cream, and the best fruit of the week.',i:'tart',t:['Seasonal']},
+  {n:'Tarte au chocolat',fr:'Chocolate ganache tart',d:'A silky dark-chocolate ganache in a crisp, thin shell.',i:'chocotart',t:['Rich']},
+  {n:'Éclair',fr:'Choux & crème pâtissière',d:'Choux pastry filled with pastry cream and glazed by hand.',i:'eclair',t:['When available']},
+  {n:'Macarons',fr:'Almond meringue sandwiches',d:'Delicate shells with a soft ganache or buttercream centre.',i:'macaron',t:['When available']}
+ ],
+ dejeuner:[
+  {n:'Croissant au poulet rôti',fr:'Roast chicken croissant',d:'Our croissant filled with house-roasted chicken.',i:'croissant',t:['Daily']},
+  {n:'Baguette jambon-beurre',fr:'The Parisian classic',d:'Crusty baguette, butter, and good ham. Nothing more needed.',i:'sandwich',t:['Daily']},
+  {n:'Salade de chèvre',fr:'Goat cheese in phyllo',d:'Warm goat cheese baked in a crisp phyllo parcel over dressed greens.',i:'salad',t:['Weekends']},
+  {n:'Ratatouille',fr:'Provençal vegetables',d:'Slow-cooked summer vegetables, olive oil and herbs.',i:'ratatouille',t:['Weekends','Vegetarian']},
+  {n:'Coq au vin',fr:'Chicken braised in red wine',d:'A Burgundy classic with mushrooms, lardons and pearl onions.',i:'cocotte',t:['Weekends']},
+  {n:'Bœuf bourguignon',fr:'Beef braised in red wine',d:'Beef slowly braised until tender, with carrots and a deep wine sauce.',i:'cocotte',t:['Weekends']}
+ ],
+ diner:[
+  {n:'Entrée',fr:'To begin',d:'A seasonal starter chosen by the chef each week.',i:'quiche',t:['Prix fixe']},
+  {n:'Plat',fr:'The main course',d:'A French bistro classic, braised or roasted, with market sides.',i:'cocotte',t:['Prix fixe']},
+  {n:'Dessert',fr:'To finish',d:'Something from the pastry kitchen, made that afternoon.',i:'dessert',t:['Prix fixe']}
+ ],
+ salon:[
+  {n:'Café',fr:'Espresso, crème, au lait',d:'Coffee to go with your croissant, at the counter or at a table.',i:'cup',t:['All day']},
+  {n:'Thé',fr:'Loose-leaf tea',d:'A pot of tea for a slow afternoon in the salon.',i:'cup',t:['All day']},
+  {n:'Chocolat chaud',fr:'French hot chocolate',d:'Thick, dark and not too sweet.',i:'chaud',t:['Cold days']}
+ ]
+};
+const grid=$('#menuGrid');
+function renderMenu(cat){
+  grid.innerHTML=MENU[cat].map((m,i)=>`<article class="dish enter" style="animation-delay:${i*.07}s"><div class="ill">${ILL[m.i]}</div><h3>${m.n}</h3><p class="fr">${m.fr}</p><p>${m.d}</p><div class="tags">${m.t.map(x=>`<span>${x}</span>`).join('')}</div></article>`).join('');
+  if(cat==='diner') grid.insertAdjacentHTML('beforeend',`<article class="dish enter" style="animation-delay:.25s;background:var(--ink);color:var(--paper)"><h3 style="color:var(--paper)">Friday nights</h3><p class="fr" style="color:${GOLD}">5:00 – 9:00 pm · last order 8:00 pm</p><p style="color:#C7CFDB">The prix fixe changes with the season. Tables are few, so reserve ahead.</p><a class="btn" href="#reserve" style="--bg:var(--paper);--fg:var(--ink);justify-self:start">Book Friday <span class="arr">→</span></a></article>`);
+  bindTilt();
+}
+$$('.tab').forEach(t=>t.addEventListener('click',()=>{ $$('.tab').forEach(x=>x.setAttribute('aria-selected',x===t)); renderMenu(t.dataset.cat); play('page'); }));
+renderMenu('viennoiserie');
+function bindTilt(){ if(reduce||!matchMedia('(hover:hover)').matches) return; $$('.dish').forEach(d=>{ d.onpointermove=e=>{const r=d.getBoundingClientRect(),px=(e.clientX-r.left)/r.width-.5,py=(e.clientY-r.top)/r.height-.5; d.style.transform=`perspective(800px) rotateY(${px*6}deg) rotateX(${-py*6}deg) translateY(-4px)`;}; d.onpointerleave=()=>d.style.transform=''; }); }
+
+/* ================= TIME HELPERS (America/New_York) ================= */
+function nyNow(){ const p=Object.fromEntries(new Intl.DateTimeFormat('en-US',{timeZone:'America/New_York',year:'numeric',month:'numeric',day:'numeric',hour:'numeric',minute:'numeric',hour12:false,weekday:'short'}).formatToParts(new Date()).map(x=>[x.type,x.value]));
+  const h=(+p.hour)%24; return {y:+p.year,m:+p.month-1,d:+p.day,mins:h*60+(+p.minute),dow:new Date(+p.year,+p.month-1,+p.day).getDay()}; }
+const isSummer=(m)=>m>=4&&m<=8; // May–September
+function pastryHours(dow,month){ if(dow===1) return null; if(dow>=2&&dow<=5) return [480,930]; if(dow===6) return [540,900]; return [isSummer(month)?510:540,900]; }
+const fmt=(mins)=>{ let h=Math.floor(mins/60), m=mins%60, ap=h>=12?'pm':'am'; h=h%12||12; return `${h}:${String(m).padStart(2,'0')} ${ap}`; };
+
+/* open-now pill + today row */
+(function(){
+  const n=nyNow(), pill=$('#statusPill'), txt=$('#statusText');
+  $$('.row[data-dow]').forEach(r=>r.classList.toggle('today',+r.dataset.dow===n.dow));
+  const ph=pastryHours(n.dow,n.m); const fri=n.dow===5;
+  let msg, open=false;
+  if(ph && n.mins>=ph[0] && n.mins<ph[1]){ open=true; msg=`Open now · pastry counter until ${fmt(ph[1])}`; if(n.mins>=690&&n.mins<840) msg=`Open now · lunch is being served until 2:00 pm`; }
+  else if(fri && n.mins>=1020 && n.mins<1260){ open=true; msg='Open now · Friday prix fixe dinner until 9:00 pm'; }
+  else { // next opening
+    for(let k=0;k<8;k++){ const dt=new Date(n.y,n.m,n.d+k), dw=dt.getDay(), hh=pastryHours(dw,dt.getMonth()); if(!hh) continue; if(k===0 && n.mins>=hh[0]){ if(fri && n.mins<1020){msg='Closed now · Friday dinner opens at 5:00 pm';break;} continue; } msg=`Closed now · opens ${k===0?'today':k===1?'tomorrow':dt.toLocaleDateString('en-US',{weekday:'long'})} at ${fmt(hh[0])}`; break; }
+  }
+  pill.classList.toggle('closed',!open); txt.textContent=msg;
+})();
+
+/* ================= RESERVATION ================= */
+const today=nyNow(); const todayDate=new Date(today.y,today.m,today.d); const maxDate=new Date(today.y,today.m,today.d+60);
+let viewY=today.y, viewM=today.m, selDate=null, selSlot=null, guests=2;
+const MONTHS=['January','February','March','April','May','June','July','August','September','October','November','December'];
+function servicesFor(date){
+  const dow=date.getDay(); const ph=pastryHours(dow,date.getMonth()); if(!ph) return [];
+  const range=(a,b,step)=>{const r=[];for(let t=a;t<=b;t+=step)r.push(t);return r;};
+  const s=[ {id:'salon',name:'Salon de thé · morning',times:range(ph[0],660,30)},
+            {id:'lunch',name:'Lunch',times:range(690,810,15)},
+            {id:'tea',name:'Salon de thé · afternoon',times:range(840,ph[1]-30,30)} ];
+  if(dow===5) s.push({id:'dinner',name:'Friday prix fixe dinner',times:range(1020,1200,30)});
+  const isToday=+date===+todayDate;
+  return s.map(g=>({...g,times:g.times.filter(t=>!isToday||t>today.mins+60)})).filter(g=>g.times.length);
+}
+function renderCal(){
+  const cal=$('#cal'); $('#calTitle').textContent=`${MONTHS[viewM]} ${viewY}`;
+  const first=new Date(viewY,viewM,1), days=new Date(viewY,viewM+1,0).getDate();
+  let h=['Sun','Mon','Tue','Wed','Thu','Fri','Sat'].map(d=>`<div class="dow">${d.slice(0,2)}</div>`).join('');
+  for(let i=0;i<first.getDay();i++) h+='<div></div>';
+  for(let d=1;d<=days;d++){ const dt=new Date(viewY,viewM,d), dow=dt.getDay();
+    const dis= dt<todayDate||dt>maxDate||dow===1||servicesFor(dt).length===0;
+    const cls=[dow===1?'mon':'',dow===5?'fri':'',+dt===+todayDate?'today':'',selDate&&+dt===+selDate?'sel':''].join(' ');
+    h+=`<button type="button" class="${cls}" data-d="${d}" ${dis?'disabled':''} aria-label="${dt.toDateString()}${dow===1?' (closed)':''}">${d}</button>`; }
+  cal.innerHTML=h;
+  $('#calPrev').disabled= viewY===today.y&&viewM===today.m;
+  $('#calNext').disabled= new Date(viewY,viewM+1,1)>maxDate;
+}
+$('#cal').addEventListener('click',e=>{ const b=e.target.closest('button[data-d]'); if(!b||b.disabled) return; selDate=new Date(viewY,viewM,+b.dataset.d); selSlot=null; renderCal(); renderSlots(); updSummary(); play('select'); });
+$('#calPrev').addEventListener('click',()=>{ viewM--; if(viewM<0){viewM=11;viewY--;} renderCal(); play('page'); });
+$('#calNext').addEventListener('click',()=>{ viewM++; if(viewM>11){viewM=0;viewY++;} renderCal(); play('page'); });
+function renderSlots(){
+  const el=$('#slots'), hint=$('#slotHint');
+  if(!selDate){ el.innerHTML=''; hint.textContent='Select a date to see open times.'; return; }
+  const sv=servicesFor(selDate); hint.textContent=selDate.toLocaleDateString('en-US',{weekday:'long',month:'long',day:'numeric'});
+  if(!sv.length){ el.innerHTML='<div class="empty">No times left today. Try another date.</div>'; return; }
+  let k=0; el.innerHTML=sv.map(g=>`<div class="slot-group"><h4><span>${g.name}</span><span>${g.times.length} times</span></h4><div class="slot-list">${g.times.map(t=>`<button type="button" class="slot enter" style="animation-delay:${(k++)*.02}s" data-t="${t}" data-s="${g.id}" data-sn="${g.name}">${fmt(t)}</button>`).join('')}</div></div>`).join('');
+}
+$('#slots').addEventListener('click',e=>{ const b=e.target.closest('.slot'); if(!b) return; $$('.slot').forEach(s=>s.classList.toggle('sel',s===b)); selSlot={t:+b.dataset.t,s:b.dataset.s,sn:b.dataset.sn}; updSummary(); play('select'); if(innerWidth<900) $('#bookForm').scrollIntoView({behavior:reduce?'auto':'smooth',block:'start'}); });
+function updSummary(){
+  $('#st1').className='step '+(selDate?'done':'cur'); $('#st2').className='step '+(selSlot?'done':selDate?'cur':''); $('#st3').className='step '+(selSlot?'cur':'');
+  $('#summaryText').innerHTML= selDate ? `<b>${selDate.toLocaleDateString('en-US',{weekday:'short',month:'short',day:'numeric'})}</b>${selSlot?` at <b>${fmt(selSlot.t)}</b> · ${selSlot.sn}`:' · pick a time'} · ${guests} guest${guests>1?'s':''}` : 'No date or time selected yet';
+}
+function setGuests(n){ guests=Math.max(1,Math.min(8,n)); $('#pp').textContent=`${guests} guest${guests>1?'s':''}`; $('#ppMsg').textContent= n>8?'For 9 or more guests, please call 703-857-0700.':''; updSummary(); }
+$('#ppMinus').addEventListener('click',()=>{setGuests(guests-1);play('tap');});
+$('#ppPlus').addEventListener('click',()=>{ if(guests===8){setGuests(9);play('error');return;} setGuests(guests+1);play('tap');});
+
+function fieldErr(id,msg){ const f=$(id); f.classList.toggle('err',!!msg); $('.msg',f).textContent=msg||''; return !msg; }
+$('#bookForm').addEventListener('submit',e=>{
+  e.preventDefault();
+  const name=$('#bName').value.trim(), phone=$('#bPhone').value.trim(), email=$('#bEmail').value.trim();
+  if(!selDate||!selSlot){ play('error'); toast(selDate?'Choose a time for your table.':'Choose a date first.'); $('#reserve .booker').scrollIntoView({behavior:reduce?'auto':'smooth'}); return; }
+  let ok=fieldErr('#f-name',name.length<2?'Enter your name.':'');
+  ok=fieldErr('#f-phone',phone.replace(/\D/g,'').length<10?'Enter a 10-digit phone number.':'')&&ok;
+  ok=fieldErr('#f-email',/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email)?'':'Enter a valid email, like name@example.com.')&&ok;
+  if(!ok){ play('error'); return; }
+  const r={code:'MT-'+Math.random().toString(36).slice(2,6).toUpperCase(),name,phone,email,guests,date:selDate.toISOString(),t:selSlot.t,sn:selSlot.sn,occ:$('#bOcc').value,park:$('#parkCar').checked?'car':'walk',notes:$('#bNotes').value.trim()};
+  const all=store.get('motier-res',[]); all.push(r); store.set('motier-res',all);
+  showTicket(r); renderMine();
+  $('#bookForm').reset(); $('#parkCar').checked=true; selSlot=null; $$('.slot').forEach(s=>s.classList.remove('sel')); setGuests(2);
+});
+function showTicket(r){
+  const d=new Date(r.date);
+  $('#tName').textContent=`À bientôt, ${r.name.split(' ')[0]}`; $('#tCode').textContent=r.code;
+  $('#tDate').textContent=d.toLocaleDateString('en-US',{weekday:'short',month:'short',day:'numeric'}); $('#tTime').textContent=fmt(r.t);
+  $('#tGuests').textContent=r.guests; $('#tService').textContent=r.sn.replace('Salon de thé · ','Salon · ');
+  $('#tPark').hidden=r.park!=='car';
+  // .ics calendar file
+  const pad=n=>String(n).padStart(2,'0'), ds=`${d.getFullYear()}${pad(d.getMonth()+1)}${pad(d.getDate())}`;
+  const st=`${ds}T${pad(Math.floor(r.t/60))}${pad(r.t%60)}00`, en=r.t+90, et=`${ds}T${pad(Math.floor(en/60))}${pad(en%60)}00`;
+  const ics=['BEGIN:VCALENDAR','VERSION:2.0','PRODID:-//Motier//Reservations//EN','BEGIN:VEVENT',`UID:${r.code}@motierclifton.com`,`DTSTART;TZID=America/New_York:${st}`,`DTEND;TZID=America/New_York:${et}`,`SUMMARY:Môtier · table for ${r.guests}`,'LOCATION:12644 Chapel Rd\\, Clifton\\, VA 20124',`DESCRIPTION:Reservation ${r.code}. Questions: 703-857-0700`,'END:VEVENT','END:VCALENDAR'].join('\r\n');
+  const a=$('#icsBtn'); a.href=URL.createObjectURL(new Blob([ics],{type:'text/calendar'})); a.download=`motier-${r.code}.ics`;
+  $('#ticketWrap').classList.add('show'); $('#ticketWrap').setAttribute('aria-hidden','false'); play('whoosh'); setTimeout(()=>play('bell'),550);
+  if(!reduce) confetti();
+}
+function closeTicket(){ $('#ticketWrap').classList.remove('show'); $('#ticketWrap').setAttribute('aria-hidden','true'); play('close'); }
+$('#tClose').addEventListener('click',closeTicket);
+$('#ticketWrap').addEventListener('click',e=>{ if(e.target.id==='ticketWrap') closeTicket(); });
+function renderMine(){
+  const all=store.get('motier-res',[]).filter(r=>new Date(r.date)>=todayDate);
+  $('#mine').innerHTML= all.length? `<span class="eyebrow">Your reservations on this device</span>`+all.map(r=>`<div class="mine-item"><div><b>${new Date(r.date).toLocaleDateString('en-US',{weekday:'long',month:'long',day:'numeric'})} · ${fmt(r.t)}</b><br><span>${r.guests} guest${r.guests>1?'s':''} · ${r.sn} · ${r.code}</span></div><button class="linkbtn" data-cancel="${r.code}">Cancel</button></div>`).join('') : '';
+}
+$('#mine').addEventListener('click',e=>{ const c=e.target.closest('[data-cancel]'); if(!c) return; store.set('motier-res',store.get('motier-res',[]).filter(r=>r.code!==c.dataset.cancel)); renderMine(); play('close'); toast('Reservation cancelled'); });
+renderCal(); renderSlots(); renderMine(); updSummary();
+
+/* pastry confetti */
+function confetti(){
+  const cv=document.createElement('canvas'); cv.style.cssText='position:fixed;inset:0;width:100%;height:100%;pointer-events:none;z-index:91'; document.body.appendChild(cv);
+  const x=cv.getContext('2d'), dpr=Math.min(devicePixelRatio||1,2); cv.width=innerWidth*dpr; cv.height=innerHeight*dpr; x.scale(dpr,dpr);
+  const cols=['#1F3B6E','#C99A4B','#E2B867','#F2B8C6','#FFFFFF','#C2334A'];
+  const ps=Array.from({length:120},()=>({x:innerWidth/2,y:innerHeight/2,vx:(Math.random()-.5)*14,vy:Math.random()*-14-4,r:Math.random()*6+3,c:cols[Math.random()*cols.length|0],a:Math.random()*6,va:(Math.random()-.5)*.3,s:Math.random()<.5}));
+  const t0=performance.now();
+  (function f(t){ x.clearRect(0,0,innerWidth,innerHeight); ps.forEach(p=>{p.vy+=.35;p.vx*=.985;p.x+=p.vx;p.y+=p.vy;p.a+=p.va; x.save();x.translate(p.x,p.y);x.rotate(p.a);x.fillStyle=p.c;x.strokeStyle='rgba(22,32,46,.15)'; if(p.s){x.fillRect(-p.r/2,-p.r/4,p.r,p.r/2)}else{x.beginPath();x.arc(0,0,p.r/2,0,6.28);x.fill();x.stroke()} x.restore();}); if(t-t0<2600) requestAnimationFrame(f); else cv.remove(); })(t0);
+}
+
+/* ================= COPY + NEWSLETTER + TOAST ================= */
+let tt; function toast(m){ const t=$('#toast'); t.textContent=m; t.classList.add('show'); clearTimeout(tt); tt=setTimeout(()=>t.classList.remove('show'),2200); }
+$$('[data-copy]').forEach(b=>b.addEventListener('click',()=>{ const el=$(b.dataset.copy), txt=el.textContent; const done=()=>{toast('Copied: '+txt);play('select');};
+  if(navigator.clipboard) navigator.clipboard.writeText(txt).then(done,()=>{selectText(el);toast('Press Ctrl/Cmd+C to copy');}); else {selectText(el);toast('Press Ctrl/Cmd+C to copy');} }));
+function selectText(el){ const r=document.createRange(); r.selectNodeContents(el); const s=getSelection(); s.removeAllRanges(); s.addRange(r); }
+$('#newsForm').addEventListener('submit',e=>{ e.preventDefault(); const v=$('#nEmail').value.trim(); if(!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(v)){ toast('Enter a valid email, like name@example.com'); play('error'); return; } $('#newsOk').hidden=false; $('#newsForm').hidden=true; play('bell'); });
+$('#yr').textContent=new Date().getFullYear();
+
+/* ================= FAQ BOT ================= */
+const bot=$('#bot'), log=$('#botLog'), fab=$('#botFab');
+const KB=[
+ {k:['hour','open','close','closing','time','when'],a:()=>{const n=nyNow(); return `Our pastry counter &amp; salon de thé hours:<br>• <b>Tue–Fri</b> 8:00 am – 3:30 pm<br>• <b>Sat</b> 9:00 am – 3:00 pm<br>• <b>Sun</b> 9:00 am – 3:00 pm (${isSummer(n.m)?'8:30 am in summer — that\'s now':'8:30 am in summer'})<br>• <b>Monday</b> closed<br><br>${$('#statusText').textContent}.`}},
+ {k:['monday'],a:()=>`We're <b>closed on Mondays</b> so the team can rest (and start the next batch of dough). See you Tuesday from 8:00 am.`},
+ {k:['lunch','dejeuner','déjeuner','noon'],a:()=>`Lunch is served <b>11:30 am – 2:00 pm</b>, Tuesday to Sunday. The menu changes daily and is written on the chalkboard at the front. Weekends often bring coq au vin, bœuf bourguignon, ratatouille, and goat cheese in phyllo.`},
+ {k:['dinner','friday','prix','fixe','evening','night','diner','dîner'],a:()=>`Our <b>Friday prix fixe dinner</b> runs 5:00 – 9:00 pm, last order at 8:00 pm. Tables are limited, so booking ahead is recommended. <a href="#reserve" data-go="reserve">Book a Friday table →</a>`},
+ {w:3,k:['park','parking','car','lot','drive'],a:()=>`Parking: there's <b>street parking on Chapel Road</b> right by our door, and more along <b>Main Street</b>, about a two-minute walk. Weekend mornings get busy, so leave a few extra minutes. <a href="#visit" data-go="visit">See the map →</a>`},
+ {k:['where','address','location','located','direction','find','map'],a:()=>`We're at <b>12644 Chapel Rd, Clifton, VA 20124</b>, in Clifton's historic town center. <a href="https://www.google.com/maps/dir/?api=1&destination=12644+Chapel+Rd,+Clifton,+VA+20124" target="_blank" rel="noopener">Get directions ↗</a>`},
+ {w:2,k:['reserv','book','table','seat','appointment'],a:()=>`You can reserve right on this page: pick a date, a time, and your party size. <a href="#reserve" data-go="reserve">Open the booking calendar →</a><br><br>For 9 or more guests, please call <b>703-857-0700</b>.`},
+ {k:['large','group','party','private','event','9','ten','10','12'],a:()=>`We're a small room, so for groups of 9 or more or a private event, please call us at <b>703-857-0700</b> and we'll see what we can arrange.`},
+ {k:['menu','eat','food','serve','offer'],a:()=>`Mornings are all about viennoiserie: croissants, pains au chocolat, chocolate-almond croissants, and canelés. We also make fruit and chocolate tarts, filled croissants and baguettes, and a daily lunch. <a href="#menu" data-go="menu">Browse the menu →</a>`},
+ {k:['croissant','pastry','pastries','viennoiserie','canel','tart','macaron','eclair','éclair'],a:()=>`Our croissants and canelés are baked fresh every morning and they do sell out, so <b>come early</b> for the best selection. The burnt-bottom canelé and the chocolate-almond croissant are house favourites.`},
+ {k:['price','cost','expensive','how much','$'],a:()=>`Prices are posted at the counter and on the lunch chalkboard, since the menu changes often. For current prices, give us a call at <b>703-857-0700</b>.`},
+ {w:2,k:['gluten','vegan','allerg','nut','dairy','vegetarian','celiac'],a:()=>`Our kitchen works with butter, flour, eggs and nuts every day, so we can't promise an allergen-free item. Please tell the team about any allergy when you order, or call <b>703-857-0700</b> ahead. Vegetarian dishes such as ratatouille appear on the lunch menu.`},
+ {k:['cake','order','custom','cater','birthday','wedding','special order'],a:()=>`For special orders, cakes or catering, please call us at <b>703-857-0700</b> or email <b>contact@motierclifton.com</b> with your date and number of guests.`},
+ {k:['phone','call','contact','email','reach'],a:()=>`Call us at <b>703-857-0700</b> or email <b>contact@motierclifton.com</b>. You can also find us on <a href="https://instagram.com/motier_clifton" target="_blank" rel="noopener">Instagram ↗</a>.`},
+ {k:['chef','owner','who','story','name','lafayette','motier','môtier'],a:()=>`Môtier is named after Gilbert du Motier, the Marquis de Lafayette. Chef Ivar Setiawan was born in Indonesia, raised and trained in France, and opened Môtier in Clifton in 2021. <a href="#story" data-go="story">Read our story →</a>`},
+ {k:['coffee','tea','café','cafe','drink','chocolate'],a:()=>`Our salon de thé serves coffee, tea and French hot chocolate all day while the counter is open. Perfect with a croissant.`},
+ {k:['instagram','social','photo'],a:()=>`Follow us on <a href="https://instagram.com/motier_clifton" target="_blank" rel="noopener">Instagram @motier_clifton ↗</a> to see what came out of the oven today.`},
+ {k:['hello','hi','bonjour','hey','salut'],a:()=>`Bonjour ! How can I help? Ask me about hours, parking, the menu, or booking a table.`},
+ {k:['thank','merci','thx'],a:()=>`Avec plaisir ! À bientôt chez Môtier.`}
+];
+const QUICK=['Hours today','Where do I park?','Book a table','Friday dinner','Allergies','Special orders'];
+function norm(s){return s.toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g,'');}
+function answer(q){ const n=norm(q); let best=null,score=0; KB.forEach(e=>{ const s=e.k.reduce((a,k)=>a+(n.includes(norm(k))?k.length:0),0)*(e.w||1); if(s>score){score=s;best=e;} });
+  return best? best.a() : `I'm not sure about that one. The team can help directly: call <b>703-857-0700</b> or email <b>contact@motierclifton.com</b>. You can also ask me about hours, parking, the menu, or reservations.`; }
+function addMsg(html,who){ const d=document.createElement('div'); d.className=who==='u'?'msg-u':'msg-b'; if(who==='u') d.textContent=html; else d.innerHTML=html; log.appendChild(d); log.scrollTop=log.scrollHeight; return d; }
+function botSay(html){ const t=document.createElement('div'); t.className='msg-b typing'; t.innerHTML='<i></i><i></i><i></i>'; log.appendChild(t); log.scrollTop=log.scrollHeight;
+  setTimeout(()=>{ t.remove(); addMsg(html,'b'); play('pop'); }, reduce?50:Math.min(1300,450+html.length*4)); }
+function ask(q){ if(!q.trim()) return; addMsg(q,'u'); play('send'); botSay(answer(q)); }
+$('#quick').innerHTML=QUICK.map(q=>`<button type="button">${q}</button>`).join('');
+$('#quick').addEventListener('click',e=>{ const b=e.target.closest('button'); if(b) ask(b.textContent); });
+$('#botForm').addEventListener('submit',e=>{ e.preventDefault(); const i=$('#botInput'); ask(i.value); i.value=''; });
+log.addEventListener('click',e=>{ const a=e.target.closest('[data-go]'); if(!a) return; e.preventDefault(); setBot(false); document.getElementById(a.dataset.go).scrollIntoView({behavior:reduce?'auto':'smooth'}); });
+let greeted=false;
+function setBot(o){ bot.classList.toggle('open',o); fab.style.visibility=o?'hidden':'visible'; play(o?'whoosh':'close'); if(o){ $('.badge',fab)?.remove(); if(!greeted){greeted=true; botSay('Bonjour ! I\'m Camille, Môtier\'s assistant. I can answer questions about our hours, menu, parking and reservations.');} setTimeout(()=>$('#botInput').focus({preventScroll:true}),400);} }
+fab.addEventListener('click',()=>setBot(true)); $('#botClose').addEventListener('click',()=>setBot(false));
+addEventListener('keydown',e=>{ if(e.key==='Escape'){ if(bot.classList.contains('open')) setBot(false); if($('#ticketWrap').classList.contains('show')) closeTicket(); if(drawer.classList.contains('open')) setDrawer(false);} });
+
+onScroll();
+})();
+</script>
+</body>
+</html>
